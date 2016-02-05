@@ -22,7 +22,8 @@ public class Dish {
 		this.image = image;
 		this.description = description;
 	}
-	
+	public Dish() {
+	}
 	public String getName() {
 		return name;
 	}

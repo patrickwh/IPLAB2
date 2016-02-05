@@ -1,5 +1,6 @@
 package se.kth.csc.iprog.dinnerplanner.model;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 public interface IDinnerModel {
@@ -20,12 +21,13 @@ public interface IDinnerModel {
 	/**
 	 * Returns all ingredients for all the dishes on the menu.
 	 */
-	public Set<Ingredient> getAllIngredients();
-	
+	//public Set<Ingredient> getAllIngredients();
+	public ArrayList<Ingredient> getAllIngredients();
 	/**
 	 * Returns the total price of the menu (all the ingredients multiplied by number of guests).
 	 */
-	public float getTotalMenuPrice();
+	//public float getTotalMenuPrice();
+	public double getTotalMenuPrice();
 	
 	/**
 	 * Adds the passed dish to the menu. If the dish of that type already exists on the menu

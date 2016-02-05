@@ -1,13 +1,20 @@
 package se.kth.csc.iprog.dinnerplanner.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
-public class DinnerModel {
+public class DinnerModel implements IDinnerModel {
 	
 
 	Set<Dish> dishes = new HashSet<Dish>();
+	HashSet<Dish> menu=new HashSet<Dish>();
+	HashSet<Dish> selectedDishes= new HashSet<Dish>();
+	//HashSet <Ingredient> allIngredients;
+	ArrayList <Ingredient> allIngredients=new ArrayList <Ingredient>();
 	
+	int guestNum=0;
 	/**
 	 * TODO: For Lab2 you need to implement the IDinnerModel interface.
 	 * When you do this you will have all the needed fields and methods
@@ -93,6 +100,96 @@ public class DinnerModel {
 			}
 		}
 		return result;
+	}
+
+	@Override
+	public int getNumberOfGuests() {
+		return this.guestNum;
+	}
+
+	@Override
+	public void setNumberOfGuests(int numberOfGuests) {
+		this.guestNum=numberOfGuests;
+	}
+
+	@Override
+	public Dish getSelectedDish(int type) {
+		Dish result=new Dish();
+		Iterator<Dish> itr=this.selectedDishes.iterator();
+		while(itr.hasNext())
+		{
+			result=itr.next();
+			if(result.getType()==type) return result;
+		}
+		return null;
+	}
+
+	@Override
+	public Set<Dish> getFullMenu() {
+		return this.menu;
+	}
+
+	private void unionAllIngrediants()
+	{
+		this.allIngredients=new ArrayList <Ingredient>();
+		// clear all information
+		Iterator<Dish> dishesIterator=this.menu.iterator();
+		while(dishesIterator.hasNext())
+		{
+			Dish thisDish=dishesIterator.next();
+			Iterator<Ingredient> iitr=thisDish.getIngredients().iterator();
+			while(iitr.hasNext())
+			{
+				Ingredient tmp=iitr.next();
+				if(allIngredients.contains(tmp))
+				{
+					Ingredient t=allIngredients.get(allIngredients.indexOf(tmp));
+					t.setQuantity(t.getQuantity()+tmp.getQuantity());
+				}
+				else
+				{
+					allIngredients.add(tmp);
+				}
+			}
+		}
+	}
+	@Override
+	public ArrayList<Ingredient> getAllIngredients() {
+		this.unionAllIngrediants();
+		return this.allIngredients;
+	}
+
+	@Override
+	public double getTotalMenuPrice() {
+		double totalPrice=0;
+		int ingredientNum=this.allIngredients.size();
+		for(int i=0;i<ingredientNum;i++)
+		{
+			totalPrice+=this.allIngredients.get(i).getPrice()*
+					this.allIngredients.get(i).getQuantity();
+		}
+		return totalPrice;
+	}
+
+	@Override
+	public void addDishToMenu(Dish dish) {
+		Iterator <Dish> ditr=this.menu.iterator();
+		while(ditr.hasNext())
+		{
+			Dish d=ditr.next();
+			if(d.type==dish.type)
+			{
+				this.menu.remove(d);
+				this.menu.add(dish);
+				return;
+			}
+		}
+		this.menu.add(dish);
+	}
+
+	@Override
+	public void removeDishFromMenu(Dish dish) {
+		if(this.menu.contains(dish)) this.menu.remove(dish);
 	}
 	
 	
