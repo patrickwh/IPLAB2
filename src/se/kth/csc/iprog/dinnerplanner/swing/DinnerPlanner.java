@@ -12,6 +12,9 @@ public class DinnerPlanner extends JFrame {
 
 	public DinnerPlanner() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		this.setBounds((Constants.widthDf-Constants.width)/2,
+				(Constants.heightDf-Constants.height)/2, Constants.width, Constants.height);
 	}	
 	
 	private DinnerModel model = new DinnerModel();
