@@ -1,6 +1,8 @@
 package se.kth.csc.iprog.dinnerplanner.swing.view;
 
 import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -25,23 +27,30 @@ public class MainView extends JPanel {
 	InformationDisplayPanel informationPanel=new InformationDisplayPanel();
 	
 	public MainView(){
-		this.setPreferredSize(new Dimension(Constants.width, Constants.height));
-		this.add(this.split);
+		
 		this.split.setContinuousLayout(true);
 		this.split.setEnabled(true);
 		this.split.setOneTouchExpandable(true);  
 		this.split.setDividerLocation(Constants.dividerLocation);
 		this.split.setDividerSize(15);
 		this.split.setPreferredSize(new Dimension(Constants.width, Constants.height));
+		this.split.setLeftComponent(tab);
+		this.split.setRightComponent(informationPanel);
 		
 		this.tab.setPreferredSize(new Dimension(Constants.tabWidth,Constants.height));
 		this.tab.add("Starter", this.starterPanel);
 		this.tab.add("Main", this.mainPanel);
 		this.tab.add("Desert", this.desertPanel);
-		
-		this.split.setLeftComponent(tab);
-		this.split.setRightComponent(informationPanel);
-		
+			
+		this.setPreferredSize(new Dimension(Constants.width, Constants.height));
+		this.add(this.split);
+		this.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseDragged(MouseEvent e)
+			{
+				System.out.println(" draged in main "+e.getComponent());
+			}
+		});
 	}
 	
 }

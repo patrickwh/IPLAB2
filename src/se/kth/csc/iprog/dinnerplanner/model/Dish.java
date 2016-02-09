@@ -73,4 +73,18 @@ public class Dish {
 		return false;
 	}
 
+	public double getCost()
+	{
+		double cost=0;
+		return cost;
+	}
+	
+	public String getypeStr()
+	{
+		String str="";
+		if(type==1) str="Starter";
+		else if(type==2) str="Main";
+		else str="Desert";
+		return str;
+	}
 }

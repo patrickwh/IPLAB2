@@ -23,11 +23,24 @@ public class Constants {
 	public static String pictureSuffix=".jpg";
 	public static int verticalScrollbarUnit=20;
 	public static int informationPanelWidth=width-dividerLocation;
-	public static int guestNumLabelHeight=50;
+	public static int guestNumLabelHeight=35;
 	public static int guestNumLabelWidth=150;
+	public static int costLabelHeight=35;
 	public static int borderMargin=10;
 	public static int guestNumSpinnerWidth=informationPanelWidth-guestNumLabelWidth-2*borderMargin;
 	public static int guestNumSpinnerHeight=30;
-	public static int informationPanelHeight=guestNumLabelHeight*2+2*borderMargin;
+	public static int informationPanelHeight=guestNumLabelHeight+costLabelHeight+2*borderMargin;
+	public static int dinnerMenuHeight=70;
+	public static int preparationButtonHeight=40;
+	public static int dinnerMenuPanelHaight=height-preparationButtonHeight-
+			informationPanelHeight-2*borderMargin;
+	public static int preparationButtonWidth=(informationPanelWidth-6*borderMargin)/2;
+	public static int menuEntryWidth=informationPanelWidth-borderMargin*4;
+	public static int menuEntryHeight=50;
+	public static int menuListHeight=dinnerMenuPanelHaight-dinnerMenuHeight-70;
+	public static int menuEntryPicWidth=menuEntryHeight;
+	public static int menuEntryLabelHeight=menuEntryHeight/2;
+	public static int menuEntryLabelWidth=menuEntryWidth-2*menuEntryPicWidth;
+	public static int largeBorderMargin=20;
 	
 }
