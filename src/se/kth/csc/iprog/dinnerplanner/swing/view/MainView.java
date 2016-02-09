@@ -1,8 +1,6 @@
 package se.kth.csc.iprog.dinnerplanner.swing.view;
 
 import java.awt.Dimension;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -44,13 +42,13 @@ public class MainView extends JPanel {
 			
 		this.setPreferredSize(new Dimension(Constants.width, Constants.height));
 		this.add(this.split);
-		this.addMouseListener(new MouseAdapter(){
-			@Override
-			public void mouseDragged(MouseEvent e)
-			{
-				System.out.println(" draged in main "+e.getComponent());
-			}
-		});
-	}
-	
+//		this.addMouseListener(new MouseAdapter(){
+//			@Override
+//			public void mouseDragged(MouseEvent e)
+//			{
+//				System.out.println(" draged in main "+e.getComponent());
+//			}
+//		});
+		new DishDropTargetListener(this.informationPanel);		
+	}	
 }

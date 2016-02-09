@@ -1,10 +1,13 @@
 package se.kth.csc.iprog.dinnerplanner.swing.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DragSource;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -27,7 +30,7 @@ public class ListAllPanel extends JPanel{
 	JScrollPane scroll;
 	JButton searchButton=new JButton("Search");
 	JPanel searchPanel=new JPanel();
-	JPanel scrollContentPnael=new JPanel();
+	public JPanel scrollContentPanel=new JPanel();
 	int dishNum=10;
 	ArrayList<Dish> dishList= new ArrayList<Dish>();
 	JPanel scrollBackgroundPanel=new JPanel();
@@ -54,14 +57,17 @@ public class ListAllPanel extends JPanel{
 		
 		public DishDisplayPanel(Dish d,int id)
 		{
+			
+			this.setPreferredSize(new Dimension(Constants.dishDisplayWidth+Constants.interDishDisplayMargin,
+					Constants.dishDisplayHeight+Constants.interDishDisplayMargin));
+			//if(d==null) return;
+			
 			this.ID=id;
 			this.dish=d;
 			this.dishIcon=new ImageIcon(Constants.homeDir+Constants.pictureDir+dish.getImage());
 			this.dishImageLabel=new JLabel();		
 			this.dishNameLabel.setText(dish.getName());
 			
-			this.setPreferredSize(new Dimension(Constants.dishDisplayWidth+Constants.interDishDisplayMargin,
-					Constants.dishDisplayHeight+Constants.interDishDisplayMargin));
 			this.setBorder(BorderFactory.createLoweredBevelBorder());
 			this.dishImageLabel.setPreferredSize(new Dimension(Constants.dishDisplayWidth,
 					Constants.dishDisplayWidth));
@@ -93,7 +99,7 @@ public class ListAllPanel extends JPanel{
 				@Override
 				public void mouseEntered(MouseEvent e)
 				{
-					DishDisplayPanel.this.setBorder(BorderFactory.createRaisedBevelBorder());
+					DishDisplayPanel.this.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY,5));
 				}
 				@Override
 				public void mouseExited(MouseEvent e)
@@ -104,10 +110,19 @@ public class ListAllPanel extends JPanel{
 				public void mouseDragged(MouseEvent e)
 				{
 					// when drag dish into the menu
-					ListAllPanel.this.setSlectedItem(DishDisplayPanel.this.ID);
-					System.out.println(" draged in main "+e.getComponent());
+					//ListAllPanel.this.setSlectedItem(DishDisplayPanel.this.ID);
+					//System.out.println(" draged in main "+e.getComponent());
 				}
 			});
+			
+			DragSource dragSource=DragSource.getDefaultDragSource();
+			dragSource.createDefaultDragGestureRecognizer(this, 
+					DnDConstants.ACTION_COPY, new DishDragGestureListener());
+		}
+		
+		public Dish getDish()
+		{
+			return this.dish;
 		}
 
 	}
@@ -118,6 +133,8 @@ public class ListAllPanel extends JPanel{
 		this.init();
 		
 		/////////////////////////////////////////////////
+		Font font=new Font("Britannic", Font.BOLD,20);
+		
 		this.setLayout(new BorderLayout());
 		this.searchPanel.setLayout(new BorderLayout());
 		this.setPreferredSize(new Dimension(Constants.tabWidth,Constants.height));
@@ -125,40 +142,94 @@ public class ListAllPanel extends JPanel{
 				Constants.searchFieldHeight));
 		this.searchButton.setPreferredSize(new Dimension(Constants.searchButtonWidth,
 				Constants.searchFieldHeight));
+		//this.searchButton.setFont(font);
+		this.searchButton.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{ 
+				ListAllPanel.this.doSearch();				
+			}
+		});
 		this.searchText.setPreferredSize( new Dimension(Constants.searchTextWidth, 
 				Constants.searchFieldHeight));
+		this.searchText.setFont(font);
 		
 		this.searchPanel.add(this.searchText,BorderLayout.WEST);
 		this.searchPanel.add(this.searchButton,BorderLayout.CENTER);
 		this.add(this.searchPanel, BorderLayout.NORTH);
 		
-		int remainder=this.dishNum%Constants.dishNumInARow;
-		int rowNum=this.dishNum/Constants.dishNumInARow;
+		this.scrollContentPanel=new JPanel();	
+		this.scrollBackgroundPanel.setPreferredSize(new Dimension(Constants.tabWidth,
+				Constants.height));
+		this.listAll();
+		
+		//////////////////////////
+		this.scroll=new JScrollPane(this.scrollContentPanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		this.scroll.setBounds(0,0,Constants.tabWidth, Constants.scrollHeight);
+		this.scroll.getVerticalScrollBar().setUnitIncrement(Constants.verticalScrollbarUnit);
+		//this.scroll.setLayout(null);
+		this.add(this.scrollBackgroundPanel,BorderLayout.CENTER);
+		this.scrollBackgroundPanel.setLayout(new BorderLayout());
+		this.scrollBackgroundPanel.add(this.scroll, BorderLayout.CENTER);
+		////////////////////////////////////////////////////
+		
+	}
+	private void listAll()
+	{
+		int itemNum=this.scrollContentPanel.getComponentCount();
+		for(int i=0;i<itemNum;i++) this.scrollContentPanel.remove(0);
+		
+		int num=this.dishList.size();
+		int remainder=num%Constants.dishNumInARow;
+		int rowNum=num/Constants.dishNumInARow;
 		if(remainder!=0) rowNum++;
 		int contentPanelWidth=Constants.tabWidth-50;
 		int contentPanelHeight=Constants.dishDisplayHeight*rowNum+
 				Constants.interDishDisplayMargin*(rowNum+1);
-		this.scrollContentPnael=new JPanel(new GridLayout(rowNum,Constants.dishNumInARow));
+		this.scrollContentPanel.setLayout(new GridLayout(rowNum,Constants.dishNumInARow));
 		//this.scrollContentPnael.setLayout(new FlowLayout());
-		this.scrollContentPnael.setPreferredSize(new Dimension(contentPanelWidth,
+		this.scrollContentPanel.setPreferredSize(new Dimension(contentPanelWidth,
 				contentPanelHeight));
-		this.scrollBackgroundPanel.setPreferredSize(new Dimension(Constants.tabWidth,
-				Constants.height));
-		
-		for(int i=0;i<this.dishNum;i++)
+		for(int i=0;i<num;i++)
 		{
-			this.scrollContentPnael.add(new DishDisplayPanel(this.dishList.get(i),i));
+			this.scrollContentPanel.add(new DishDisplayPanel(this.dishList.get(i),i));
 		}
-		
-		this.scroll=new JScrollPane(this.scrollContentPnael,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		this.scroll.setBounds(0,0,Constants.tabWidth, Constants.scrollHeight);
-		this.scroll.getVerticalScrollBar().setUnitIncrement(Constants.verticalScrollbarUnit);
-		this.add(this.scrollBackgroundPanel,BorderLayout.CENTER);
-		this.scrollBackgroundPanel.setLayout(new BorderLayout());
-		this.scrollBackgroundPanel.add(this.scroll, BorderLayout.CENTER);
+		this.revalidate();
+		this.repaint();
 	}
-	
+	private void showThisDishOnly(Dish d)
+	{
+		int itemNum=this.scrollContentPanel.getComponentCount();
+		for(int i=0;i<itemNum;i++) this.scrollContentPanel.remove(0);
+		this.scrollContentPanel.setPreferredSize(new Dimension(Constants.dishDisplayWidth,
+				Constants.dishDisplayHeight));
+		this.scrollContentPanel.setLayout(new GridLayout(2,Constants.dishNumInARow));
+		DishDisplayPanel r=new DishDisplayPanel(d,0);
+		this.scrollContentPanel.add(r);
+		this.scrollContentPanel.setLayout(null);
+		int width= Constants.dishDisplayWidth+10;
+		int height=Constants.dishDisplayHeight+10;
+		r.setBounds(0, 0,width,height);//      French toast
+		this.revalidate();
+		this.repaint();
+	}
+	public void doSearch()
+	{
+		String name=this.searchText.getText();
+		//Dish tmp=new Dish();
+		if(name.length()==0) this.listAll();;
+		int num=this.dishList.size();
+		for(int i=0;i<num;i++)
+		{
+			if(this.dishList.get(i).getName().equals(name))
+			{
+				this.showThisDishOnly(dishList.get(i));
+				break;
+			}
+		}
+		this.showThisDishOnly(new Dish("NO RESULT",1,"noResult.jpg","No result has been found"));
+	}
 	public void setSlectedItem(int id)
 	{
 		this.selectedItem=this.dishList.get(id);

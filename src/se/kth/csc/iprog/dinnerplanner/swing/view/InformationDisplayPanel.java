@@ -27,17 +27,18 @@ public class InformationDisplayPanel extends JPanel{
 	JPanel guestNumPanel=new JPanel();
 	JSpinner guestNumSpinner=new JSpinner();
 	JLabel costLabel=new JLabel("Total cost:");
-	JLabel numberLabel=new JLabel("$0.00");
+	JLabel numberLabel=new JLabel("$ 0.00");
 	JPanel costPanel=new JPanel();
 	JPanel topPanel=new JPanel();
 	JPanel dinnerMenuPanel=new JPanel();
-	JLabel dinnerMenuLabel=new JLabel("Dinner menu");
+	JLabel dinnerMenuLabel=new JLabel("Dinner Menu");
 	JPanel buttonPanel= new JPanel();
 	JButton preparationButton=new JButton("Preparation");
 	JButton ingredientsButton=new JButton("Ingredients");
 	JPanel menuListPanel=new JPanel();
 	JScrollPane menuScroll;
 	JPanel scrollContentPanel=new JPanel();
+	JPanel scrollBackgrounPanel=new JPanel();
 	
 	ArrayList <Dish> menu=new ArrayList <Dish>();
 
@@ -121,6 +122,12 @@ public class InformationDisplayPanel extends JPanel{
 		this.menu.add(dish);
 		this.menu.add(dish);
 		this.menu.add(dish);
+		this.menu.add(dish);
+		this.menu.add(dish);
+		this.menu.add(dish);
+		this.menu.add(dish);
+		this.menu.add(dish);
+		this.menu.add(dish);
 		
 		Font smallTextFont=new Font ("Bodoni MT",Font.BOLD,18);
 		Font xsmallTextFont=new Font ("Bodoni MT",Font.BOLD,16);
@@ -170,26 +177,27 @@ public class InformationDisplayPanel extends JPanel{
 				Constants.dinnerMenuHeight));
 		this.dinnerMenuLabel.setHorizontalAlignment(JLabel.CENTER);
 		this.dinnerMenuLabel.setVerticalAlignment(JLabel.CENTER);
-		this.scrollContentPanel.setPreferredSize(new Dimension(Constants.menuEntryWidth,
-				Constants.menuListHeight));
+		
 		int rowNum=this.menu.size();
+		int contentHeight=Constants.menuEntryRealHeight*rowNum;
+		this.scrollContentPanel.setPreferredSize(new Dimension(Constants.menuEntryWidth,
+				contentHeight));
 		this.scrollContentPanel.setLayout(new FlowLayout());
-		this.scrollContentPanel.addMouseListener(new MouseAdapter(){
-			@Override
-			public void mouseReleased(MouseEvent e)
-			{
-				InformationDisplayPanel.this.addToList();
-			}
-		});
 		for(int i=0;i<rowNum;i++)
 			this.scrollContentPanel.add(new MenuListItem(menu.get(i),i));
 		this.menuScroll=new JScrollPane(scrollContentPanel);
 		this.menuScroll.setPreferredSize(new Dimension(Constants.menuEntryWidth,
 				Constants.menuListHeight));
+		this.menuScroll.setBounds(0,0,Constants.menuEntryWidth, Constants.menuListHeight);
+		this.menuScroll.getVerticalScrollBar().setUnitIncrement(10);
+		this.scrollBackgrounPanel.setLayout(new BorderLayout());
+		this.scrollBackgrounPanel.setPreferredSize(new Dimension(Constants.menuEntryWidth,
+				Constants.menuListHeight));
+		this.scrollBackgrounPanel.add(menuScroll, BorderLayout.CENTER);		
 		
 		this.dinnerMenuPanel.setLayout(new BorderLayout());
 		this.dinnerMenuPanel.add(this.dinnerMenuLabel, BorderLayout.NORTH);
-		this.dinnerMenuPanel.add(menuScroll, BorderLayout.CENTER);
+		this.dinnerMenuPanel.add(scrollBackgrounPanel, BorderLayout.CENTER);
 		this.dinnerMenuPanel.setPreferredSize(new Dimension(Constants.informationPanelWidth,
 				Constants.dinnerMenuHeight));
 		this.dinnerMenuPanel.setBorder(BorderFactory.createEmptyBorder(0, 
@@ -198,9 +206,23 @@ public class InformationDisplayPanel extends JPanel{
 		this.preparationButton.setFont(xsmallTextFont);
 		this.preparationButton.setPreferredSize(new Dimension(Constants.preparationButtonWidth,
 				Constants.preparationButtonHeight));
+		this.preparationButton.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{ // new preparation window
+				
+			}
+		});
 		this.ingredientsButton.setFont(xsmallTextFont);
 		this.ingredientsButton.setPreferredSize(new Dimension(Constants.preparationButtonWidth,
 				Constants.preparationButtonHeight));
+		this.ingredientsButton.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{ // new ingredients window
+				
+			}
+		});
 		
 		this.buttonPanel.setLayout(new FlowLayout());
 		this.buttonPanel.setBorder(BorderFactory.createEmptyBorder(Constants.borderMargin, 
@@ -230,12 +252,25 @@ public class InformationDisplayPanel extends JPanel{
 		itemNum=this.menu.size();
 		for(int i=0;i<itemNum;i++)
 			this.scrollContentPanel.add(new MenuListItem(menu.get(i),i));
+		int contentHeight=Constants.menuEntryRealHeight*itemNum;
+		this.scrollContentPanel.setPreferredSize(new Dimension(Constants.menuEntryWidth,
+				contentHeight));
 		this.revalidate();
 		this.repaint();
 	}
 	
-	public void addToList()
+	public void addToList(Dish d)
 	{
-		//this.getParent().getComponent(0).
+		int itemNum=this.menu.size();
+		for(int i=0;i<itemNum;i++) this.scrollContentPanel.remove(0);
+		this.menu.add(d);
+		itemNum=this.menu.size();
+		for(int i=0;i<itemNum;i++)
+			this.scrollContentPanel.add(new MenuListItem(menu.get(i),i));
+		int contentHeight=Constants.menuEntryRealHeight*itemNum;
+		this.scrollContentPanel.setPreferredSize(new Dimension(Constants.menuEntryWidth,
+				contentHeight));
+		this.revalidate();
+		this.repaint();
 	}
 }

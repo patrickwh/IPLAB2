@@ -35,12 +35,13 @@ public class Constants {
 	public static int dinnerMenuPanelHaight=height-preparationButtonHeight-
 			informationPanelHeight-2*borderMargin;
 	public static int preparationButtonWidth=(informationPanelWidth-6*borderMargin)/2;
-	public static int menuEntryWidth=informationPanelWidth-borderMargin*4;
+	public static int menuEntryWidth=informationPanelWidth-borderMargin*5-5;
 	public static int menuEntryHeight=50;
 	public static int menuListHeight=dinnerMenuPanelHaight-dinnerMenuHeight-70;
 	public static int menuEntryPicWidth=menuEntryHeight;
 	public static int menuEntryLabelHeight=menuEntryHeight/2;
 	public static int menuEntryLabelWidth=menuEntryWidth-2*menuEntryPicWidth;
 	public static int largeBorderMargin=20;
+	public static int menuEntryRealHeight=menuEntryHeight+5;
 	
 }
