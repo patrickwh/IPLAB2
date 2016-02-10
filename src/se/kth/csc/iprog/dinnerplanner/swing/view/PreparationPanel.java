@@ -17,10 +17,10 @@ public class PreparationPanel extends JPanel{
 	public PreparationPanel(){
         //super(new BorderLayout());
         this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-        Label title = new Label("Dinner menu preparation");
-        Label starter = new Label("Starter:");
-        Label main = new Label("Main:");
-        Label desert = new Label("Desert:");
+        Label title = new Label("Dinner menu preparation",Label.CENTER);
+        Label starter = new Label("Starter:",Label.CENTER);
+        Label main = new Label("Main:",Label.CENTER);
+        Label desert = new Label("Desert:",Label.CENTER);
         TextArea starterContent = new TextArea("Just some text how to make it");
         TextArea mainContent = new TextArea("***********");
         TextArea desertContent = new TextArea("############");
