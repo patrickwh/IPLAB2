@@ -23,7 +23,6 @@ public class PreparationPanel extends JPanel{
         TextArea starterContent = new TextArea("Just some text how to make it");
         TextArea mainContent = new TextArea("***********");
         TextArea desertContent = new TextArea("############");
-        //JPanel panel= new JPanel();
 
         add(title);
         add(starter);
@@ -34,12 +33,7 @@ public class PreparationPanel extends JPanel{
         add(desertContent);
 
     }
-//
-//    private void subPane(Label title, Label starter,Label main, Label desert, TextArea starterC, TextArea mainC,TextArea deseC){
-//
-//        JPanel titlePane = new JPanel();
-//        titlePane.add(title,BorderLayout.CENTER);
-//    }
+
 
 
 
