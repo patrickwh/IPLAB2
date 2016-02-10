@@ -36,9 +36,9 @@ public class IngredientPanel extends JPanel {
         final JTable table = new JTable(data, columnNames);
         table.setBackground(Color.orange);
 
-        JScrollPane scrollPanepanel = new JScrollPane(table);
+        JScrollPane scrollPane = new JScrollPane(table);
 
-        add(scrollPanepanel);
+        add(scrollPane);
 
 
     }
