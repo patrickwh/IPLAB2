@@ -29,8 +29,8 @@ public class IngredientPanel extends JPanel {
 
         // Table content
         Object[][] data = {
-                {temp1.getName(), temp1.getQuantity() + temp1.getUnit(), temp1.getPrice() + "$"},
-                {temp2.getName(), temp2.getQuantity() + temp2.getUnit(), temp2.getPrice() + "$"},
+                {temp1.getName(), (int)temp1.getQuantity() + temp1.getUnit(), temp1.getPrice() + "$"},
+                {temp2.getName(), (int)temp2.getQuantity() + temp2.getUnit(), temp2.getPrice() + "$"},
         };
 
         final JTable table = new JTable(data, columnNames);
