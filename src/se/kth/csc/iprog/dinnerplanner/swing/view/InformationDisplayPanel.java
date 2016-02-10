@@ -211,7 +211,7 @@ public class InformationDisplayPanel extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{ // new preparation window
-				
+				PreparationPanel pp=new PreparationPanel();
 			}
 		});
 		this.ingredientsButton.setFont(xsmallTextFont);
@@ -221,7 +221,8 @@ public class InformationDisplayPanel extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{ // new ingredients window
-				
+				IngredientPanel ip=new IngredientPanel();
+				ip.creatAndShowGUI();
 			}
 		});
 		

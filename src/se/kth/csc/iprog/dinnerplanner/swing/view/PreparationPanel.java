@@ -12,8 +12,9 @@ import java.net.NoRouteToHostException;
  * Created by Jiansun on 16/2/10.
  */
 public class PreparationPanel extends JPanel{
+	private static final long serialVersionUID = 1L;
 
-    public PreparationPanel(){
+	public PreparationPanel(){
         //super(new BorderLayout());
         this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         Label title = new Label("Dinner menu preparation");

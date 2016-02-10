@@ -11,7 +11,9 @@ import java.util.ArrayList;
  */
 public class IngredientPanel extends JPanel {
 
-    public IngredientPanel() {
+	private static final long serialVersionUID = 1L;
+
+	public IngredientPanel() {
 
         super(new BorderLayout());
 
@@ -43,10 +45,10 @@ public class IngredientPanel extends JPanel {
 
     }
 
-    private static void creatAndShowGUI() {
+    public void creatAndShowGUI() {
         //creat and set up the window
         JFrame frame = new JFrame("Dinner Planner - Ingredients");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         //Creat and set up the content pane
 
@@ -60,12 +62,7 @@ public class IngredientPanel extends JPanel {
     }
 
     public static void main(String args[]) {
-
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                creatAndShowGUI();
-            }
-        });
+    	IngredientPanel panel=new IngredientPanel();
+    	panel.creatAndShowGUI();
     }
 }
