@@ -41,7 +41,7 @@ public class PreparationPanel extends JPanel{
     private static  void  creatAndShowGUI(){
         //creat and setup the window
         JFrame fram = new JFrame("Dinner planner-Preparation");
-        fram.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        fram.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         PreparationPanel newPrepPane = new PreparationPanel();
         newPrepPane.setOpaque(true);
@@ -52,12 +52,14 @@ public class PreparationPanel extends JPanel{
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                creatAndShowGUI();
-            }
-        });
+//        SwingUtilities.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                creatAndShowGUI();
+//            }
+//        });
+        PreparationPanel pp = new PreparationPanel();
+        pp.creatAndShowGUI();
     }
 
 
