@@ -19,6 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 
 import se.kth.csc.iprog.dinnerplanner.model.Dish;
+import se.kth.csc.iprog.dinnerplanner.model.Ingredient;
 
 public class InformationDisplayPanel extends JPanel{
 	
@@ -33,7 +34,7 @@ public class InformationDisplayPanel extends JPanel{
 	JPanel dinnerMenuPanel=new JPanel();
 	JLabel dinnerMenuLabel=new JLabel("Dinner Menu");
 	JPanel buttonPanel= new JPanel();
-	JButton preparationButton=new JButton("PreparationPanel");
+	JButton preparationButton=new JButton("Preparation");
 	JButton ingredientsButton=new JButton("Ingredients");
 	JPanel menuListPanel=new JPanel();
 	JScrollPane menuScroll;
@@ -52,7 +53,7 @@ public class InformationDisplayPanel extends JPanel{
 		JLabel costLabel=new JLabel();
 		JPanel labelPanel=new JPanel();
 		JLabel imageLabel=new JLabel();
-		JButton removeButton= new JButton();
+		JLabel removeButton= new JLabel();
 		
 		public MenuListItem(Dish d,int id)
 		{
@@ -83,12 +84,22 @@ public class InformationDisplayPanel extends JPanel{
 			this.removeButton.setIcon(new ImageIcon(newImg));
 			this.removeButton.setPreferredSize(new Dimension(Constants.menuEntryPicWidth,
 					Constants.menuEntryPicWidth));
-			//this.removeButton.setBackground(Color.RED);
+			//this.removeButton.setBackground(Color.RED);	
 			this.removeButton.addMouseListener(new MouseAdapter(){
 				@Override
 				public void mouseClicked(MouseEvent e)
 				{
 					InformationDisplayPanel.this.removeFromList(MenuListItem.this.id);
+				}
+				@Override
+				public void mouseEntered(MouseEvent e)
+				{
+					MenuListItem.this.removeButton.setBorder(
+							BorderFactory.createRaisedBevelBorder());
+				}
+				public void mouseExited(MouseEvent e)
+				{
+					MenuListItem.this.removeButton.setBorder(null);
 				}
 			});
 			
@@ -101,10 +112,17 @@ public class InformationDisplayPanel extends JPanel{
 			this.setBorder(BorderFactory.createEtchedBorder());
 			this.addMouseListener(new MouseAdapter(){
 				@Override
+				public void mouseClicked(MouseEvent e)
+				{
+					DishNameDisplayWindow dndw=new DishNameDisplayWindow(MenuListItem.this.dish,5);
+					dndw.setVisible(true);
+				}
+				@Override
 				public void mouseEntered(MouseEvent e)
 				{
 					MenuListItem.this.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY,3));
 				}
+				@Override
 				public void mouseExited(MouseEvent e)
 				{
 					MenuListItem.this.setBorder(BorderFactory.createEtchedBorder());
@@ -120,6 +138,8 @@ public class InformationDisplayPanel extends JPanel{
 				+ "Soak bread slices in the egg mixture until saturated. Heat a lightly oiled "
 				+ "griddle or frying pan over medium high heat. Brown slices on both sides, "
 				+ "sprinkle with cinnamon and serve hot.");
+		dish.addIngredient(new Ingredient("Carrot",500,"g",2.5));
+		dish.addIngredient(new Ingredient("Egg",2,"",4.0));
 		this.menu.add(dish);
 		this.menu.add(dish);
 		this.menu.add(dish);
@@ -132,7 +152,7 @@ public class InformationDisplayPanel extends JPanel{
 		
 		Font smallTextFont=new Font ("Bodoni MT",Font.BOLD,18);
 		Font xsmallTextFont=new Font ("Bodoni MT",Font.BOLD,16);
-		Font largeTextFont=new Font ("��Բ",Font.BOLD,32);
+		Font largeTextFont=new Font ("Forte",Font.BOLD,32);
 		
 		this.guestNumLabel.setFont(smallTextFont);
 		this.guestNumLabel.setPreferredSize(new Dimension(Constants.guestNumLabelWidth,
@@ -212,6 +232,7 @@ public class InformationDisplayPanel extends JPanel{
 			public void mouseClicked(MouseEvent e)
 			{ // new preparation window
 				PreparationPanel pp=new PreparationPanel();
+				pp.creatAndShowGUI();
 			}
 		});
 		this.ingredientsButton.setFont(xsmallTextFont);
@@ -228,7 +249,7 @@ public class InformationDisplayPanel extends JPanel{
 		
 		this.buttonPanel.setLayout(new FlowLayout());
 		this.buttonPanel.setBorder(BorderFactory.createEmptyBorder(Constants.borderMargin, 
-				Constants.borderMargin, Constants.borderMargin, Constants.borderMargin));
+				0, Constants.borderMargin, 0));
 		this.buttonPanel.add(preparationButton);
 		this.buttonPanel.add(ingredientsButton);
 		
