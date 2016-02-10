@@ -47,7 +47,8 @@ public class PreparationPanel extends JPanel{
         newPrepPane.setOpaque(true);
         newPrepPane.setLayout(new BoxLayout(newPrepPane,BoxLayout.Y_AXIS));
         fram.setContentPane(newPrepPane);
-        fram.setSize(800,600);
+        //fram.setSize(800,600);
+        fram.pack();
         fram.setVisible(true);
     }
 

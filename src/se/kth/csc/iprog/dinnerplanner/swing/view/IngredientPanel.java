@@ -57,7 +57,8 @@ public class IngredientPanel extends JPanel {
         frame.setContentPane(newContentPane);
         //display
 
-        frame.setSize(800, 600);
+        //frame.setSize(800, 600);
+        frame.pack();
         frame.setVisible(true);
     }
 
