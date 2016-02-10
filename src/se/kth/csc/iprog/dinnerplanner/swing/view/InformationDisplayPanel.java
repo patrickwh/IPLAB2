@@ -33,7 +33,7 @@ public class InformationDisplayPanel extends JPanel{
 	JPanel dinnerMenuPanel=new JPanel();
 	JLabel dinnerMenuLabel=new JLabel("Dinner Menu");
 	JPanel buttonPanel= new JPanel();
-	JButton preparationButton=new JButton("Preparation");
+	JButton preparationButton=new JButton("PreparationPanel");
 	JButton ingredientsButton=new JButton("Ingredients");
 	JPanel menuListPanel=new JPanel();
 	JScrollPane menuScroll;
@@ -131,7 +131,7 @@ public class InformationDisplayPanel extends JPanel{
 		
 		Font smallTextFont=new Font ("Bodoni MT",Font.BOLD,18);
 		Font xsmallTextFont=new Font ("Bodoni MT",Font.BOLD,16);
-		Font largeTextFont=new Font ("свт╡",Font.BOLD,32);
+		Font largeTextFont=new Font ("О©╫О©╫т╡",Font.BOLD,32);
 		
 		this.guestNumLabel.setFont(smallTextFont);
 		this.guestNumLabel.setPreferredSize(new Dimension(Constants.guestNumLabelWidth,
