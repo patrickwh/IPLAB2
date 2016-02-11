@@ -1,12 +1,11 @@
 package se.kth.csc.iprog.dinnerplanner.swing.view;
 
-import se.kth.csc.iprog.dinnerplanner.model.Dish;
+import java.awt.Label;
+import java.awt.TextArea;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.TextEvent;
-import java.awt.event.TextListener;
-import java.net.NoRouteToHostException;
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  * Created by Jiansun on 16/2/10.
@@ -35,10 +34,7 @@ public class PreparationPanel extends JPanel{
 
     }
 
-
-
-
-    private static  void  creatAndShowGUI(){
+    public void  creatAndShowGUI(){
         //creat and setup the window
         JFrame fram = new JFrame("Dinner planner-Preparation");
         fram.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -53,15 +49,8 @@ public class PreparationPanel extends JPanel{
     }
 
     public static void main(String[] args) {
-//        SwingUtilities.invokeLater(new Runnable() {
-//            @Override
-//            public void run() {
-//                creatAndShowGUI();
-//            }
-//        });
+
         PreparationPanel pp = new PreparationPanel();
         pp.creatAndShowGUI();
     }
-
-
 }

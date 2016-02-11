@@ -49,4 +49,12 @@ public class Constants {
 	public static int dishNameInformationPanelHeight=dishNameDisplayWindowHeight/3;
 	public static int dishNameImageWidth=dishNameInformationPanelHeight-2*dishNameBorder;
 	public static int dishNameNamePanelWidth=dishNameDisplayWindowWidth-dishNameInformationPanelHeight;
+	public static int dishNameNameHeight=dishNameInformationPanelHeight/2;
+	public static int dishNameSplitHeight=dishNameDisplayWindowHeight-dishNameInformationPanelHeight;
+	public static int dishNameDividerLocation=dishNameDisplayWindowWidth/2;
+	public static int dishNameDescriptionWidth=dishNameDisplayWindowWidth/2;
+	public static int dishNameNamePanelBorderWidth=20;
+	public static int dishNameTableColumnWidth1=(dishNameDescriptionWidth/7)*3;
+	public static int dishNameTableColumnWidth2=(dishNameDescriptionWidth/7)*2;
+	public static int dishNameTableRowHeight=40;
 }
