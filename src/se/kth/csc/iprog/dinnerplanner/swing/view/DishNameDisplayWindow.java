@@ -1,13 +1,21 @@
 package se.kth.csc.iprog.dinnerplanner.swing.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -15,7 +23,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.UIManager;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 
 import se.kth.csc.iprog.dinnerplanner.model.Dish;
@@ -40,14 +51,33 @@ public class DishNameDisplayWindow extends JFrame{
 	JTextArea description=new JTextArea();
 	JTable table;
 	IngredientTableCellRender render=new IngredientTableCellRender();
+	JTableHeader theader;
 	
+	private class TableHeaderRender extends DefaultTableCellRenderer
+	{
+		private static final long serialVersionUID = 1L;
+		JComponent cell;
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+		          boolean hasFocus, int row, int column)
+		{
+			cell = (JComponent)super.getTableCellRendererComponent 
+			        ( table, value,isSelected, hasFocus, row, column);
+			cell.setBackground(Color.LIGHT_GRAY);
+			if(column==0) cell.setPreferredSize(new Dimension(Constants.dishNameTableColumnWidth1,
+					Constants.dishNameTableRowHeight));
+			else cell.setPreferredSize(new Dimension(Constants.dishNameTableColumnWidth2,
+					Constants.dishNameTableRowHeight));
+			setBorder(UIManager.getBorder("TableHeader.cellBorder"));
+			return cell;	
+		}
+	}
 	public DishNameDisplayWindow(Dish d,int num)
 	{
 		this.dish=d;
 		this.guestNum=num;
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
-		Font nameFont=new Font("Harlow Solid",Font.BOLD,36);
+		Font nameFont=new Font("Informal Roman",Font.BOLD,38);
 		Font costFont=new Font("Segoe Print",Font.BOLD,20);
 		Font tableFont=new  Font("Gill Sans MT",Font.PLAIN,20);
 		
@@ -65,6 +95,7 @@ public class DishNameDisplayWindow extends JFrame{
 		Image newImg=img.getScaledInstance(Constants.dishNameImageWidth, Constants.dishNameImageWidth, 
 				Image.SCALE_SMOOTH);
 		this.image.setIcon(new ImageIcon(newImg));
+		this.image.setBorder(BorderFactory.createRaisedBevelBorder());
 		this.imagePanel.setPreferredSize(new Dimension(Constants.dishNameInformationPanelHeight,
 				Constants.dishNameInformationPanelHeight));
 		this.imagePanel.setLayout(new BorderLayout());
@@ -104,6 +135,8 @@ public class DishNameDisplayWindow extends JFrame{
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		this.descriptionScroll.setPreferredSize(new Dimension(Constants.dishNameDescriptionWidth,
 				Constants.dishNameSplitHeight));
+		this.description.setSelectionStart(0);
+		this.description.setSelectionEnd(0);
 		this.descriptionScroll.getVerticalScrollBar().setValue(0);
 		
 		
@@ -116,15 +149,25 @@ public class DishNameDisplayWindow extends JFrame{
             }
 	    };
 		DefaultTableModel dtm=(DefaultTableModel)this.table.getModel();
-		dtm.setColumnIdentifiers(this.header);
+		dtm.setColumnIdentifiers(header);
+		TableHeaderRender hrender=new TableHeaderRender();
+		this.theader=this.table.getTableHeader();
+		this.theader.setDefaultRenderer(hrender);
+		this.theader.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				int columnNo=DishNameDisplayWindow.this.table.columnAtPoint(e.getPoint());
+				DishNameDisplayWindow.this.sortTbaleByKey(columnNo);
+			}
+		});
 		this.table.getColumn("Ingredient").setPreferredWidth(Constants.dishNameTableColumnWidth1);
 		this.table.getColumn("Quantity").setPreferredWidth(Constants.dishNameTableColumnWidth2);
 		this.table.getColumn("Cost").setPreferredWidth(Constants.dishNameTableColumnWidth2);
 		this.table.setOpaque(false);
-		this.table.setRowHeight(40);
+		this.table.setRowHeight(Constants.dishNameTableRowHeight);
 		this.table.setFont(tableFont);
 		
-
 		Iterator <Ingredient> itr=dish.getIngredients().iterator();
 		String[] tableContent=new String[3];
 		while(itr.hasNext())
@@ -149,6 +192,45 @@ public class DishNameDisplayWindow extends JFrame{
 		this.split.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 	}
 
+	private class ListComparator implements Comparator<Ingredient>
+	{
+		int sortType=0;
+		public ListComparator(int t)
+		{
+			this.sortType=t;
+		}
+		@Override
+		public int compare(Ingredient ing1, Ingredient ing2) {
+			if(this.sortType==0) return ing1.getName().compareTo(ing2.getName());
+			else if(this.sortType==1) return Double.compare(ing1.getQuantity(), ing2.getQuantity());
+			else return Double.compare(ing1.getPrice(), ing2.getPrice());
+		}
+		
+	}
+	public void sortTbaleByKey(int key)
+	{
+		Iterator <Ingredient> itr=dish.getIngredients().iterator();
+		ArrayList<Ingredient> list=new ArrayList<Ingredient>();
+		while(itr.hasNext()) list.add(itr.next());
+		ListComparator comp=new ListComparator(key);
+		Collections.sort(list, comp);
+		int num=this.table.getRowCount();
+		DefaultTableModel dtm=(DefaultTableModel)this.table.getModel();
+		for(int i=0;i<num;i++) dtm.removeRow(0);
+		num=list.size();
+		String[] tableContent=new String[3];
+		for(int i=0;i<num;i++)
+		{
+			Ingredient ing=list.get(i);
+			tableContent[0]=ing.getName();
+			tableContent[1]=""+ing.getQuantity()+" "+ing.getUnit();
+			tableContent[2]="$ "+ing.getPrice();
+			dtm.addRow(tableContent);
+		}
+		this.validate();
+		this.repaint();
+	}
+	
 	public static void main(String args[])
 	{
 		Dish d=new Dish("NO RESULT",1,"noResult.jpg","No result has been found");

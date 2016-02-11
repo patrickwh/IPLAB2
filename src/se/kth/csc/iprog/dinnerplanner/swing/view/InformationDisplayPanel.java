@@ -65,6 +65,7 @@ public class InformationDisplayPanel extends JPanel{
 			Image newImg=img.getScaledInstance(Constants.menuEntryPicWidth,
 					Constants.menuEntryPicWidth, Image.SCALE_SMOOTH);
 			this.imageLabel.setIcon(new ImageIcon(newImg));
+			this.imageLabel.setBorder(BorderFactory.createRaisedBevelBorder());
 			
 			this.nameLabel.setText("   "+dish.getypeStr()+" : "+dish.getName());
 			this.nameLabel.setPreferredSize(new Dimension(Constants.menuEntryLabelWidth,
@@ -114,7 +115,8 @@ public class InformationDisplayPanel extends JPanel{
 				@Override
 				public void mouseClicked(MouseEvent e)
 				{
-					DishNameDisplayWindow dndw=new DishNameDisplayWindow(MenuListItem.this.dish,5);
+					DishNameDisplayWindow dndw=new DishNameDisplayWindow(MenuListItem.this.dish,
+							InformationDisplayPanel.this.getGuestNum());
 					dndw.setVisible(true);
 				}
 				@Override
@@ -295,5 +297,10 @@ public class InformationDisplayPanel extends JPanel{
 				contentHeight));
 		this.revalidate();
 		this.repaint();
+	}
+	
+	public int getGuestNum()
+	{
+		return (Integer) this.guestNumSpinner.getValue();
 	}
 }

@@ -56,4 +56,5 @@ public class Constants {
 	public static int dishNameNamePanelBorderWidth=20;
 	public static int dishNameTableColumnWidth1=(dishNameDescriptionWidth/7)*3;
 	public static int dishNameTableColumnWidth2=(dishNameDescriptionWidth/7)*2;
+	public static int dishNameTableRowHeight=40;
 }
