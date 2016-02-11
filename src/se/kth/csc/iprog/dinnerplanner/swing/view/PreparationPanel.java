@@ -32,17 +32,14 @@ public class PreparationPanel extends JPanel{
         // The top layout
         title.setText("Dinner menu preparation");
         title.setHorizontalAlignment(JLabel.CENTER);
-        //title.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
-                //Constants.dishNameInformationPanelHeight));
+
         JPanel topP = new JPanel();
         topP.setLayout(new BorderLayout());
-        //topP.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
-                //Constants.dishNameInformationPanelHeight));
+
         topP.add(title,BorderLayout.NORTH);
         starter.setText("Starter:"+dishStarter.getName());
         starter.setHorizontalAlignment(JLabel.CENTER);
-        //starter.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
-                //Constants.dishNameInformationPanelHeight));
+
         topP.add(starter,BorderLayout.CENTER);
         starterContent.setText(dishStarter.getDescription());
         starterContent.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
@@ -73,26 +70,34 @@ public class PreparationPanel extends JPanel{
         bottP.add(desert,BorderLayout.NORTH);
         desertContent.setText(dishDesert.getDescription());
         bottP.add(desertContent,BorderLayout.SOUTH);
-        //bottP.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
-               // Constants.dishNameInformationPanelHeight));
+
         desertContent.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
                 Constants.dishNameInformationPanelHeight));
         title.setFont(font);
         starter.setFont(font);
         main.setFont(font);
         desert.setFont(font);
-        //setPreferredSize(new Dimension(800,600));
-        //this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-        //add(Box.createRigidArea(new Dimension(20,20)));
+
         add(topP,BorderLayout.NORTH);
-        //add(Box.createRigidArea(new Dimension(20,20)));
+
         add(midP,BorderLayout.CENTER);
-        //add(Box.createRigidArea(new Dimension(20,20)));
+
         add(bottP,BorderLayout.SOUTH);
         this.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
                 Constants.dishNameInformationPanelHeight));
-
-
+        setPreferredSize(new Dimension(800,600));
+        this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
+        add(Box.createRigidArea(new Dimension(20,20)));
+        add(Box.createRigidArea(new Dimension(20,20)));
+        add(Box.createRigidArea(new Dimension(20,20)));
+        bottP.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
+         Constants.dishNameInformationPanelHeight));
+        title.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
+        Constants.dishNameInformationPanelHeight));
+        topP.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
+        Constants.dishNameInformationPanelHeight));
+        starter.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
+        Constants.dishNameInformationPanelHeight));
 
     }
 
