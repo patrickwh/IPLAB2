@@ -17,14 +17,14 @@ public class DinnerPlanner extends JFrame {
 				(Constants.heightDf-Constants.height)/2, Constants.width, Constants.height);
 	}	
 	
-	private DinnerModel model = new DinnerModel();
+	private static DinnerModel model = new DinnerModel();
 
 	public DinnerModel getModel() {
 		return model;
 	}
 
 	public void setModel(DinnerModel model) {
-		this.model = model;
+		DinnerPlanner.model = model;
 	}
 
 	public static void main(String[] args) {
@@ -33,7 +33,7 @@ public class DinnerPlanner extends JFrame {
 		dinnerPlanner.setTitle("Dinner Planner");
 		
 		//Creating the first view
-		MainView mainView = new MainView();
+		MainView mainView = new MainView(model);
 		
 		//Adding the view to the main JFrame
 		dinnerPlanner.getContentPane().add(mainView);
