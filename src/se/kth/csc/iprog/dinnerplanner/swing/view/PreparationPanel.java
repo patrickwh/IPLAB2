@@ -11,54 +11,88 @@ import javax.swing.*;
  */
 public class PreparationPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
-    String dishStarter;
-    String dishMain;
-    String dishDesert;
-    JLabel title;
+//    String dishStarter;
+//    String dishMain;
+//    String dishDesert;
+    JLabel title=new JLabel();
     Font font = new Font("Courier", Font.BOLD,30);
-    JLabel starter;
-    JLabel main;
-    JLabel desert;
-    JTextArea starterContent;
-    JTextArea mainContent;
-    JTextArea desertContent;
+    JLabel starter = new JLabel();
+    JLabel main = new JLabel();
+    JLabel desert = new JLabel();
+    JTextArea starterContent = new JTextArea();
+    JTextArea mainContent = new JTextArea();
+    JTextArea desertContent = new JTextArea();
 
 
 
 
     public PreparationPanel(Dish dishStarter,Dish dishMain, Dish dishDesert ){
-        //super(new BorderLayout());
+        super(new BorderLayout());
+
+        // The top layout
         title.setText("Dinner menu preparation");
         title.setHorizontalAlignment(JLabel.CENTER);
+        //title.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
+                //Constants.dishNameInformationPanelHeight));
+        JPanel topP = new JPanel();
+        topP.setLayout(new BorderLayout());
+        //topP.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
+                //Constants.dishNameInformationPanelHeight));
+        topP.add(title,BorderLayout.NORTH);
         starter.setText("Starter:"+dishStarter.getName());
         starter.setHorizontalAlignment(JLabel.CENTER);
+        //starter.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
+                //Constants.dishNameInformationPanelHeight));
+        topP.add(starter,BorderLayout.CENTER);
+        starterContent.setText(dishStarter.getDescription());
+        starterContent.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
+                Constants.dishNameInformationPanelHeight));
+        //title.setPreferredSize(new Dimension(20,20));
+        topP.add(starterContent,BorderLayout.SOUTH);
+
+        //topP.setPreferredSize(new Dimension(100,100));
+
+        // The middle layout
+        JPanel midP = new JPanel();
+        midP.setLayout(new BorderLayout());
         main.setText("Main:"+dishMain.getName());
         main.setHorizontalAlignment(JLabel.CENTER);
+        mainContent.setText(dishMain.getDescription());
+        midP.add(main,BorderLayout.NORTH);
+        midP.add(mainContent,BorderLayout.SOUTH);
+        mainContent.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
+                Constants.dishNameInformationPanelHeight));
+        midP.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
+                Constants.dishNameInformationPanelHeight));
+
+        // The bottom layout
+        JPanel bottP = new JPanel();
+        bottP.setLayout(new BorderLayout());
         desert.setText("Desert:"+dishDesert.getName());
         desert.setHorizontalAlignment(JLabel.CENTER);
-        starterContent.setText(dishStarter.getDescription());
-        mainContent.setText(dishMain.getDescription());
+        bottP.add(desert,BorderLayout.NORTH);
         desertContent.setText(dishDesert.getDescription());
-        this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
+        bottP.add(desertContent,BorderLayout.SOUTH);
+        //bottP.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
+               // Constants.dishNameInformationPanelHeight));
+        desertContent.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
+                Constants.dishNameInformationPanelHeight));
         title.setFont(font);
         starter.setFont(font);
         main.setFont(font);
         desert.setFont(font);
         //setPreferredSize(new Dimension(800,600));
-        add(Box.createRigidArea(new Dimension(20,20)));
-        add(title);
-        add(Box.createRigidArea(new Dimension(20,20)));
-        add(starter);
-        add(Box.createRigidArea(new Dimension(20,20)));
-        add(starterContent);
-        add(Box.createRigidArea(new Dimension(20,20)));
-        add(main);
-        add(Box.createRigidArea(new Dimension(20,20)));
-        add(mainContent);
-        add(Box.createRigidArea(new Dimension(20,20)));
-        add(desert);
-        add(Box.createRigidArea(new Dimension(20,20)));
-        add(desertContent);
+        //this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
+        //add(Box.createRigidArea(new Dimension(20,20)));
+        add(topP,BorderLayout.NORTH);
+        //add(Box.createRigidArea(new Dimension(20,20)));
+        add(midP,BorderLayout.CENTER);
+        //add(Box.createRigidArea(new Dimension(20,20)));
+        add(bottP,BorderLayout.SOUTH);
+        this.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
+                Constants.dishNameInformationPanelHeight));
+
+
 
     }
 
@@ -68,16 +102,18 @@ public class PreparationPanel extends JPanel{
 
     public void  creatAndShowGUI(){
         //creat and setup the window
-        JFrame fram = new JFrame("Dinner planner-Preparation");
-        fram.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        JFrame frame = new JFrame("Dinner planner-Preparation");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 
         this.setOpaque(true);
-        this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-        fram.setContentPane(this);
-        //fram.setSize(800,600);
-        fram.pack();
-        fram.setVisible(true);
+        //this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
+        frame.setContentPane(this);
+//        this.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
+//                Constants.dishNameInformationPanelHeight));
+        frame.setSize(800,750);
+        //frame.pack();
+        frame.setVisible(true);
     }
 
     public static void main(String[] args) {
