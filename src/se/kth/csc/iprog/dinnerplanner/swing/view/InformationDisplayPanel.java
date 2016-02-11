@@ -18,6 +18,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import se.kth.csc.iprog.dinnerplanner.model.DinnerModel;
 import se.kth.csc.iprog.dinnerplanner.model.Dish;
@@ -163,7 +165,11 @@ public class InformationDisplayPanel extends JPanel{
 		this.guestNumSpinner.setFont(smallTextFont);
 		this.guestNumSpinner.setPreferredSize(new Dimension(Constants.guestNumSpinnerWidth,
 				Constants.guestNumSpinnerHeight));
-		//this.guestNumSpinner.addChangeListener();
+		this.guestNumSpinner.addChangeListener(new ChangeListener(){
+			public void stateChanged(ChangeEvent arg0) {	
+				InformationDisplayPanel.this.setTotalCost();
+			}	
+		});
 		
 		this.guestNumPanel.setPreferredSize(new Dimension(Constants.informationPanelWidth,
 				Constants.guestNumLabelHeight));
@@ -233,7 +239,7 @@ public class InformationDisplayPanel extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{ // new preparation window
-				PreparationPanel pp=new PreparationPanel();
+				PreparationPanel pp=new PreparationPanel(null,null,null);
 				pp.creatAndShowGUI();
 			}
 		});
@@ -304,5 +310,13 @@ public class InformationDisplayPanel extends JPanel{
 	public int getGuestNum()
 	{
 		return (Integer) this.guestNumSpinner.getValue();
+	}
+	
+	public void setTotalCost()
+	{
+		String str="$ ";
+		int num=(Integer) this.guestNumSpinner.getValue();
+		str+=num*model.getTotalMenuPrice();
+		this.numberLabel.setText(str);
 	}
 }

@@ -109,7 +109,7 @@ public class DishNameDisplayWindow extends JFrame{
 				Constants.dishNameNameHeight));
 		this.cost.setPreferredSize(new Dimension(Constants.dishNameNamePanelWidth,
 				Constants.dishNameNameHeight));
-		this.cost.setText("$ "+dish.getCost()+"  for "+this.guestNum+" persons");
+		this.cost.setText("$ "+(dish.getCost()*guestNum)+"  for "+this.guestNum+" persons");
 		this.cost.setFont(costFont);
 		this.namePanel.setPreferredSize(new Dimension(Constants.dishNameNamePanelWidth,
 				Constants.dishNameInformationPanelHeight));
@@ -181,7 +181,7 @@ public class DishNameDisplayWindow extends JFrame{
 		
 		this.ingredientScroll=new JScrollPane(table,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		this.ingredientScroll.setPreferredSize(new Dimension(Constants.dishNameDescriptionWidth,
+		this.ingredientScroll.setPreferredSize(new Dimension(Constants.dishNameTableWidth,
 				Constants.dishNameSplitHeight));
 		
 		this.split.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
