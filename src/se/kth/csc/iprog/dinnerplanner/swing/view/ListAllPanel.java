@@ -40,7 +40,7 @@ public class ListAllPanel extends JPanel{
 	ArrayList<Dish> dishList= new ArrayList<Dish>();
 	JPanel scrollBackgroundPanel=new JPanel();
 	Dish selectedItem=new Dish();
-	private void init()
+	private void init(ArrayList<Dish> list)
 	{
 		Dish d=new Dish("French toast",Dish.STARTER,"toast.jpg","In a large mixing bowl, "
 				+ "beat the eggs. Add the milk, brown sugar and nutmeg; stir well to combine. "
@@ -50,6 +50,8 @@ public class ListAllPanel extends JPanel{
 		int num=10;
 		for(int i=0;i<num;i++)
 			this.dishList.add(d);
+		num=list.size();
+		for(int i=0;i<num;i++) this.dishList.add(list.get(i));
 	}
 	public class DishDisplayPanel extends JPanel{
 
@@ -132,11 +134,11 @@ public class ListAllPanel extends JPanel{
 		}
 
 	}
-	public  ListAllPanel()
+	public  ListAllPanel(ArrayList<Dish> list)
 	{
 		//////////////////////////////////////////////////
 		
-		this.init();
+		this.init(list);
 		
 		/////////////////////////////////////////////////
 		Font font=new Font("Britannic", Font.BOLD,20);

@@ -9,6 +9,7 @@ import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -18,8 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 
+import se.kth.csc.iprog.dinnerplanner.model.DinnerModel;
 import se.kth.csc.iprog.dinnerplanner.model.Dish;
-import se.kth.csc.iprog.dinnerplanner.model.Ingredient;
 
 public class InformationDisplayPanel extends JPanel{
 	
@@ -42,6 +43,7 @@ public class InformationDisplayPanel extends JPanel{
 	JPanel scrollBackgrounPanel=new JPanel();
 	
 	ArrayList <Dish> menu=new ArrayList <Dish>();
+	DinnerModel model;
 
 	public class MenuListItem extends JPanel
 	{
@@ -54,7 +56,7 @@ public class InformationDisplayPanel extends JPanel{
 		JPanel labelPanel=new JPanel();
 		JLabel imageLabel=new JLabel();
 		JLabel removeButton= new JLabel();
-		
+
 		public MenuListItem(Dish d,int id)
 		{
 			this.id=id;
@@ -70,7 +72,7 @@ public class InformationDisplayPanel extends JPanel{
 			this.nameLabel.setText("   "+dish.getypeStr()+" : "+dish.getName());
 			this.nameLabel.setPreferredSize(new Dimension(Constants.menuEntryLabelWidth,
 				Constants.menuEntryLabelHeight));
-			this.costLabel.setText("   Cost :$"+dish.getCost());
+			this.costLabel.setText("   Cost : $ "+dish.getCost());
 			this.costLabel.setPreferredSize(new Dimension(Constants.menuEntryLabelWidth,
 					Constants.menuEntryLabelHeight));
 			this.labelPanel.setLayout(new BorderLayout());
@@ -90,7 +92,7 @@ public class InformationDisplayPanel extends JPanel{
 				@Override
 				public void mouseClicked(MouseEvent e)
 				{
-					InformationDisplayPanel.this.removeFromList(MenuListItem.this.id);
+					InformationDisplayPanel.this.removeFromList(MenuListItem.this.dish);
 				}
 				@Override
 				public void mouseEntered(MouseEvent e)
@@ -133,24 +135,21 @@ public class InformationDisplayPanel extends JPanel{
 		}
 	}
 	
-	public InformationDisplayPanel()
+	private void transferSetToList()
 	{
-		Dish dish=new Dish("French toast",Dish.STARTER,"toast.jpg","In a large mixing bowl, "
-				+ "beat the eggs. Add the milk, brown sugar and nutmeg; stir well to combine. "
-				+ "Soak bread slices in the egg mixture until saturated. Heat a lightly oiled "
-				+ "griddle or frying pan over medium high heat. Brown slices on both sides, "
-				+ "sprinkle with cinnamon and serve hot.");
-		dish.addIngredient(new Ingredient("Carrot",500,"g",2.5));
-		dish.addIngredient(new Ingredient("Egg",2,"",4.0));
-		this.menu.add(dish);
-		this.menu.add(dish);
-		this.menu.add(dish);
-		this.menu.add(dish);
-		this.menu.add(dish);
-		this.menu.add(dish);
-		this.menu.add(dish);
-		this.menu.add(dish);
-		this.menu.add(dish);
+		int num=menu.size();
+		for(int i=0;i<num;i++) menu.remove(0);
+		Iterator <Dish> itr=this.model.getFullMenu().iterator();
+		while(itr.hasNext())
+		{
+			menu.add(itr.next());
+		}
+	}
+	
+	public InformationDisplayPanel(DinnerModel m)
+	{
+		this.model=m;
+		this.transferSetToList();
 		
 		Font smallTextFont=new Font ("Bodoni MT",Font.BOLD,18);
 		Font xsmallTextFont=new Font ("Bodoni MT",Font.BOLD,16);
@@ -164,6 +163,7 @@ public class InformationDisplayPanel extends JPanel{
 		this.guestNumSpinner.setFont(smallTextFont);
 		this.guestNumSpinner.setPreferredSize(new Dimension(Constants.guestNumSpinnerWidth,
 				Constants.guestNumSpinnerHeight));
+		//this.guestNumSpinner.addChangeListener();
 		
 		this.guestNumPanel.setPreferredSize(new Dimension(Constants.informationPanelWidth,
 				Constants.guestNumLabelHeight));
@@ -269,11 +269,12 @@ public class InformationDisplayPanel extends JPanel{
 		
 	}
 	
-	public void removeFromList(int id)
+	public void removeFromList(Dish dish)
 	{
 		int itemNum=this.menu.size();
 		for(int i=0;i<itemNum;i++) this.scrollContentPanel.remove(0);
-		this.menu.remove(id);
+		model.removeDishFromMenu(dish);
+		this.transferSetToList();
 		itemNum=this.menu.size();
 		for(int i=0;i<itemNum;i++)
 			this.scrollContentPanel.add(new MenuListItem(menu.get(i),i));
@@ -288,7 +289,8 @@ public class InformationDisplayPanel extends JPanel{
 	{
 		int itemNum=this.menu.size();
 		for(int i=0;i<itemNum;i++) this.scrollContentPanel.remove(0);
-		this.menu.add(d);
+		model.addDishToMenu(d);
+		this.transferSetToList();
 		itemNum=this.menu.size();
 		for(int i=0;i<itemNum;i++)
 			this.scrollContentPanel.add(new MenuListItem(menu.get(i),i));

@@ -1,6 +1,7 @@
 package se.kth.csc.iprog.dinnerplanner.model;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 public class Dish {
@@ -76,6 +77,11 @@ public class Dish {
 	public double getCost()
 	{
 		double cost=0;
+		Iterator<Ingredient> itr=this.ingredients.iterator();
+		while(itr.hasNext()) 
+		{
+			cost+=itr.next().getPrice();
+		}
 		return cost;
 	}
 	

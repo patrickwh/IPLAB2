@@ -21,6 +21,7 @@ public class Constants {
 	public static String homeDir="./";
 	public static String pictureDir="images/";
 	public static String pictureSuffix=".jpg";
+	public static String dataDir="./initData/data.txt";
 	public static int verticalScrollbarUnit=20;
 	public static int informationPanelWidth=width-dividerLocation;
 	public static int guestNumLabelHeight=35;
