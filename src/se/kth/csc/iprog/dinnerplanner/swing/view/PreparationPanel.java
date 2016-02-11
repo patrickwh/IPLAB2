@@ -85,19 +85,19 @@ public class PreparationPanel extends JPanel{
         add(bottP,BorderLayout.SOUTH);
         this.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
                 Constants.dishNameInformationPanelHeight));
-        setPreferredSize(new Dimension(800,600));
-        this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-        add(Box.createRigidArea(new Dimension(20,20)));
-        add(Box.createRigidArea(new Dimension(20,20)));
-        add(Box.createRigidArea(new Dimension(20,20)));
-        bottP.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
-         Constants.dishNameInformationPanelHeight));
-        title.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
-        Constants.dishNameInformationPanelHeight));
-        topP.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
-        Constants.dishNameInformationPanelHeight));
-        starter.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
-        Constants.dishNameInformationPanelHeight));
+        //setPreferredSize(new Dimension(800,600));
+        //this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
+        //add(Box.createRigidArea(new Dimension(20,20)));
+        //add(Box.createRigidArea(new Dimension(20,20)));
+        //add(Box.createRigidArea(new Dimension(20,20)));
+        //bottP.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
+        // Constants.dishNameInformationPanelHeight));
+        //title.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
+        //Constants.dishNameInformationPanelHeight));
+        //topP.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
+        //Constants.dishNameInformationPanelHeight));
+        //starter.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
+        //Constants.dishNameInformationPanelHeight));
 
     }
 
