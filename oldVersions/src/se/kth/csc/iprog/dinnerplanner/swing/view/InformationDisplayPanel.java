@@ -9,6 +9,9 @@ import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -17,10 +20,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
+import se.kth.csc.iprog.dinnerplanner.model.DinnerModel;
 import se.kth.csc.iprog.dinnerplanner.model.Dish;
 
-public class InformationDisplayPanel extends JPanel{
+public class InformationDisplayPanel extends JPanel implements Observer{
 	
 	private static final long serialVersionUID = 1L;
 	JLabel guestNumLabel=new JLabel("Number of people");
@@ -41,6 +47,7 @@ public class InformationDisplayPanel extends JPanel{
 	JPanel scrollBackgrounPanel=new JPanel();
 	
 	ArrayList <Dish> menu=new ArrayList <Dish>();
+	DinnerModel model;
 
 	public class MenuListItem extends JPanel
 	{
@@ -52,8 +59,8 @@ public class InformationDisplayPanel extends JPanel{
 		JLabel costLabel=new JLabel();
 		JPanel labelPanel=new JPanel();
 		JLabel imageLabel=new JLabel();
-		JButton removeButton= new JButton();
-		
+		JLabel removeButton= new JLabel();
+
 		public MenuListItem(Dish d,int id)
 		{
 			this.id=id;
@@ -64,11 +71,12 @@ public class InformationDisplayPanel extends JPanel{
 			Image newImg=img.getScaledInstance(Constants.menuEntryPicWidth,
 					Constants.menuEntryPicWidth, Image.SCALE_SMOOTH);
 			this.imageLabel.setIcon(new ImageIcon(newImg));
+			this.imageLabel.setBorder(BorderFactory.createRaisedBevelBorder());
 			
 			this.nameLabel.setText("   "+dish.getypeStr()+" : "+dish.getName());
 			this.nameLabel.setPreferredSize(new Dimension(Constants.menuEntryLabelWidth,
 				Constants.menuEntryLabelHeight));
-			this.costLabel.setText("   Cost :$"+dish.getCost());
+			this.costLabel.setText("   Cost : $ "+dish.getCost());
 			this.costLabel.setPreferredSize(new Dimension(Constants.menuEntryLabelWidth,
 					Constants.menuEntryLabelHeight));
 			this.labelPanel.setLayout(new BorderLayout());
@@ -83,12 +91,22 @@ public class InformationDisplayPanel extends JPanel{
 			this.removeButton.setIcon(new ImageIcon(newImg));
 			this.removeButton.setPreferredSize(new Dimension(Constants.menuEntryPicWidth,
 					Constants.menuEntryPicWidth));
-			//this.removeButton.setBackground(Color.RED);
+			//this.removeButton.setBackground(Color.RED);	
 			this.removeButton.addMouseListener(new MouseAdapter(){
 				@Override
 				public void mouseClicked(MouseEvent e)
 				{
-					InformationDisplayPanel.this.removeFromList(MenuListItem.this.id);
+					InformationDisplayPanel.this.removeFromList(MenuListItem.this.dish);
+				}
+				@Override
+				public void mouseEntered(MouseEvent e)
+				{
+					MenuListItem.this.removeButton.setBorder(
+							BorderFactory.createRaisedBevelBorder());
+				}
+				public void mouseExited(MouseEvent e)
+				{
+					MenuListItem.this.removeButton.setBorder(null);
 				}
 			});
 			
@@ -101,10 +119,18 @@ public class InformationDisplayPanel extends JPanel{
 			this.setBorder(BorderFactory.createEtchedBorder());
 			this.addMouseListener(new MouseAdapter(){
 				@Override
+				public void mouseClicked(MouseEvent e)
+				{
+					DishNameDisplayWindow dndw=new DishNameDisplayWindow(MenuListItem.this.dish,
+							InformationDisplayPanel.this.getGuestNum());
+					dndw.setVisible(true);
+				}
+				@Override
 				public void mouseEntered(MouseEvent e)
 				{
 					MenuListItem.this.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY,3));
 				}
+				@Override
 				public void mouseExited(MouseEvent e)
 				{
 					MenuListItem.this.setBorder(BorderFactory.createEtchedBorder());
@@ -113,26 +139,27 @@ public class InformationDisplayPanel extends JPanel{
 		}
 	}
 	
-	public InformationDisplayPanel()
+	private void transferSetToList()
 	{
-		Dish dish=new Dish("French toast",Dish.STARTER,"toast.jpg","In a large mixing bowl, "
-				+ "beat the eggs. Add the milk, brown sugar and nutmeg; stir well to combine. "
-				+ "Soak bread slices in the egg mixture until saturated. Heat a lightly oiled "
-				+ "griddle or frying pan over medium high heat. Brown slices on both sides, "
-				+ "sprinkle with cinnamon and serve hot.");
-		this.menu.add(dish);
-		this.menu.add(dish);
-		this.menu.add(dish);
-		this.menu.add(dish);
-		this.menu.add(dish);
-		this.menu.add(dish);
-		this.menu.add(dish);
-		this.menu.add(dish);
-		this.menu.add(dish);
+		int num=menu.size();
+		for(int i=0;i<num;i++) menu.remove(0);
+		Iterator <Dish> itr=this.model.getFullMenu().iterator();
+		while(itr.hasNext())
+		{
+			menu.add(itr.next());
+		}
+	}
+	
+	public InformationDisplayPanel(DinnerModel m)
+	{
+		this.model=m;
+		// register this view as one of the model's observers
+		this.model.addObserver(this);
+		this.transferSetToList();
 		
 		Font smallTextFont=new Font ("Bodoni MT",Font.BOLD,18);
 		Font xsmallTextFont=new Font ("Bodoni MT",Font.BOLD,16);
-		Font largeTextFont=new Font ("свт╡",Font.BOLD,32);
+		Font largeTextFont=new Font ("Forte",Font.BOLD,32);
 		
 		this.guestNumLabel.setFont(smallTextFont);
 		this.guestNumLabel.setPreferredSize(new Dimension(Constants.guestNumLabelWidth,
@@ -142,6 +169,11 @@ public class InformationDisplayPanel extends JPanel{
 		this.guestNumSpinner.setFont(smallTextFont);
 		this.guestNumSpinner.setPreferredSize(new Dimension(Constants.guestNumSpinnerWidth,
 				Constants.guestNumSpinnerHeight));
+		this.guestNumSpinner.addChangeListener(new ChangeListener(){
+			public void stateChanged(ChangeEvent arg0) {	
+				InformationDisplayPanel.this.setTotalCost();
+			}	
+		});
 		
 		this.guestNumPanel.setPreferredSize(new Dimension(Constants.informationPanelWidth,
 				Constants.guestNumLabelHeight));
@@ -211,7 +243,8 @@ public class InformationDisplayPanel extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{ // new preparation window
-				
+				PreparationPanel pp=new PreparationPanel(null,null,null);
+				pp.creatAndShowGUI();
 			}
 		});
 		this.ingredientsButton.setFont(xsmallTextFont);
@@ -221,13 +254,14 @@ public class InformationDisplayPanel extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{ // new ingredients window
-				
+				IngredientPanel ip=new IngredientPanel();
+				ip.creatAndShowGUI();
 			}
 		});
 		
 		this.buttonPanel.setLayout(new FlowLayout());
 		this.buttonPanel.setBorder(BorderFactory.createEmptyBorder(Constants.borderMargin, 
-				Constants.borderMargin, Constants.borderMargin, Constants.borderMargin));
+				0, Constants.borderMargin, 0));
 		this.buttonPanel.add(preparationButton);
 		this.buttonPanel.add(ingredientsButton);
 		
@@ -245,11 +279,12 @@ public class InformationDisplayPanel extends JPanel{
 		
 	}
 	
-	public void removeFromList(int id)
+	public void removeFromList(Dish dish)
 	{
 		int itemNum=this.menu.size();
 		for(int i=0;i<itemNum;i++) this.scrollContentPanel.remove(0);
-		this.menu.remove(id);
+		model.removeDishFromMenu(dish);
+		this.transferSetToList();
 		itemNum=this.menu.size();
 		for(int i=0;i<itemNum;i++)
 			this.scrollContentPanel.add(new MenuListItem(menu.get(i),i));
@@ -264,7 +299,8 @@ public class InformationDisplayPanel extends JPanel{
 	{
 		int itemNum=this.menu.size();
 		for(int i=0;i<itemNum;i++) this.scrollContentPanel.remove(0);
-		this.menu.add(d);
+		model.addDishToMenu(d);
+		this.transferSetToList();
 		itemNum=this.menu.size();
 		for(int i=0;i<itemNum;i++)
 			this.scrollContentPanel.add(new MenuListItem(menu.get(i),i));
@@ -273,5 +309,23 @@ public class InformationDisplayPanel extends JPanel{
 				contentHeight));
 		this.revalidate();
 		this.repaint();
+	}
+	
+	public int getGuestNum()
+	{
+		return (Integer) this.guestNumSpinner.getValue();
+	}
+	
+	public void setTotalCost()
+	{
+		String str="$ ";
+		int num=(Integer) this.guestNumSpinner.getValue();
+		str+=num*model.getTotalMenuPrice();
+		this.numberLabel.setText(str);
+	}
+
+	@Override
+	public void update(Observable obs, Object obj) {
+		
 	}
 }

@@ -16,11 +16,9 @@ public class DinnerModel extends Observable implements IDinnerModel {
 
 	Set<Dish> dishes = new HashSet<Dish>();
 	HashSet<Dish> menu=new HashSet<Dish>();
+	HashSet<Dish> selectedDishes= new HashSet<Dish>();
 	//HashSet <Ingredient> allIngredients;
 	ArrayList <Ingredient> allIngredients=new ArrayList <Ingredient>();
-	ArrayList<Dish> starterList=new ArrayList<Dish>();
-	ArrayList<Dish> mainList=new ArrayList<Dish>();
-	ArrayList<Dish> desertList=new ArrayList<Dish>();
 	
 	int guestNum=0;
 	/**
@@ -48,6 +46,7 @@ public class DinnerModel extends Observable implements IDinnerModel {
 			String des;
 			while(!(str=br.readLine()).equals("#END#"))
 			{
+				System.out.println(" str "+str);
 				String[] data=str.split("#");
 				name=data[0];
 				type=Integer.valueOf(data[1]);
@@ -66,9 +65,6 @@ public class DinnerModel extends Observable implements IDinnerModel {
 					d.addIngredient(ingredient);
 				}
 				this.dishes.add(d);
-				if(d.getType()==Dish.STARTER) this.starterList.add(d);
-				else if(d.getType()==Dish.MAIN) this.mainList.add(d);
-				else this.desertList.add(d);
 			}
 			br.close();
 			fr.close();
@@ -125,13 +121,25 @@ public class DinnerModel extends Observable implements IDinnerModel {
 	@Override
 	public void setNumberOfGuests(int numberOfGuests) {
 		this.guestNum=numberOfGuests;
+		this.setChanged();
 		try 
 		{
-			this.setChanged();
 			this.notifyObservers(new ChangeMessage(ChangeMessage.GuestNumChanged,this.guestNum));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public Dish getSelectedDish(int type) {
+		Dish result=new Dish();
+		Iterator<Dish> itr=this.selectedDishes.iterator();
+		while(itr.hasNext())
+		{
+			result=itr.next();
+			if(result.getType()==type) return result;
+		}
+		return null;
 	}
 
 	@Override
@@ -189,75 +197,35 @@ public class DinnerModel extends Observable implements IDinnerModel {
 			if(d.type==dish.type)
 			{
 				this.menu.remove(d);
-				this.menu.add(dish);	
-				try {
-					this.setChanged();
-					this.notifyObservers(new ChangeMessage
-							(ChangeMessage.ToatalMenuCostCahnged,this.getTotalMenuPrice()));
-					this.setChanged();
-					this.notifyObservers(new ChangeMessage(ChangeMessage.MenuChanged,this.getMunuList()));
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				this.menu.add(dish);
 				return;
 			}
 		}
 		this.menu.add(dish);
+		this.setChanged();
 		try 
 		{
-			this.setChanged();
-			this.notifyObservers(new ChangeMessage
-					(ChangeMessage.ToatalMenuCostCahnged,this.getTotalMenuPrice()));
-			this.setChanged();
-			this.notifyObservers(new ChangeMessage(ChangeMessage.MenuChanged,this.getMunuList()));
+			this.notifyObservers(new ChangeMessage(ChangeMessage.MenuChanged,this.menu));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	private ArrayList<Dish> getMunuList()
-	{
-		ArrayList<Dish> list=new ArrayList<Dish>();
-		Iterator<Dish> itr=this.menu.iterator();
-		while(itr.hasNext())
-		{
-			list.add(itr.next());
-		}
-		return list;
-	}
 	@Override
 	public void removeDishFromMenu(Dish dish) {
 		if(this.menu.contains(dish))
 		{
 			this.menu.remove(dish);
+			this.setChanged();
 			try 
 			{
-				this.setChanged();
-				this.notifyObservers(new ChangeMessage
-						(ChangeMessage.ToatalMenuCostCahnged,this.getTotalMenuPrice()));
-				this.setChanged();
-				this.notifyObservers(new ChangeMessage(ChangeMessage.MenuChanged,this.getMunuList()));
+				this.notifyObservers(new ChangeMessage(ChangeMessage.MenuChanged,this.menu));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 	}
-	@Override
-	public Dish getSelectedDish(int type) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
-	public ArrayList<Dish> getFullListOfSpcifiedType(int type)
-	{
-		if(type==Dish.STARTER) return this.starterList;
-		else if(type==Dish.MAIN) return this.mainList;
-		else return this.desertList;
-	}
+	
 
-	public Dish getNullDish()
-	{
-		return new Dish("NO RESULT",1,"noResult.jpg","No result has been found");
-	}
 }

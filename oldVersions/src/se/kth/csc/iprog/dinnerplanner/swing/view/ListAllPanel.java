@@ -8,17 +8,22 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DragSource;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 
 import se.kth.csc.iprog.dinnerplanner.model.Dish;
 
@@ -35,16 +40,10 @@ public class ListAllPanel extends JPanel{
 	ArrayList<Dish> dishList= new ArrayList<Dish>();
 	JPanel scrollBackgroundPanel=new JPanel();
 	Dish selectedItem=new Dish();
-	private void init()
+	private void init(ArrayList<Dish> list)
 	{
-		Dish d=new Dish("French toast",Dish.STARTER,"toast.jpg","In a large mixing bowl, "
-				+ "beat the eggs. Add the milk, brown sugar and nutmeg; stir well to combine. "
-				+ "Soak bread slices in the egg mixture until saturated. Heat a lightly oiled "
-				+ "griddle or frying pan over medium high heat. Brown slices on both sides, "
-				+ "sprinkle with cinnamon and serve hot.");
-		int num=10;
-		for(int i=0;i<num;i++)
-			this.dishList.add(d);
+		int num=list.size();
+		for(int i=0;i<num;i++) this.dishList.add(list.get(i));
 	}
 	public class DishDisplayPanel extends JPanel{
 
@@ -71,12 +70,13 @@ public class ListAllPanel extends JPanel{
 			this.setBorder(BorderFactory.createLoweredBevelBorder());
 			this.dishImageLabel.setPreferredSize(new Dimension(Constants.dishDisplayWidth,
 					Constants.dishDisplayWidth));
+			this.dishImageLabel.setBorder(BorderFactory.createRaisedBevelBorder());
 			this.dishNameLabel.setPreferredSize(new Dimension(Constants.dishDisplayWidth,
 				    Constants.dishNameDisplayLabelHeight));
 			this.dishNameLabel.setHorizontalAlignment(JLabel.CENTER);
-			this.dishNameLabel.setVerticalAlignment(JLabel.CENTER);
+			this.dishNameLabel.setVerticalAlignment(JLabel.CENTER);		
 			
-			Font nameFont=new Font("Britannic", Font.BOLD,20);
+			Font nameFont=new Font("Segoe Print", Font.BOLD,20);
 			this.dishNameLabel.setFont(nameFont);
 			
 			Image img=this.dishIcon.getImage();
@@ -94,7 +94,7 @@ public class ListAllPanel extends JPanel{
 				@Override
 				public void mouseClicked(MouseEvent e)
 				{
-					System.out.println(" this is clicked "+DishDisplayPanel.this.ID);
+					//System.out.println(" this is clicked "+DishDisplayPanel.this.ID);
 				}
 				@Override
 				public void mouseEntered(MouseEvent e)
@@ -126,12 +126,11 @@ public class ListAllPanel extends JPanel{
 		}
 
 	}
-	public  ListAllPanel()
+	public  ListAllPanel(ArrayList<Dish> list)
 	{
 		//////////////////////////////////////////////////
 		
-		this.init();
-		
+		this.init(list);	
 		/////////////////////////////////////////////////
 		Font font=new Font("Britannic", Font.BOLD,20);
 		
@@ -153,6 +152,18 @@ public class ListAllPanel extends JPanel{
 		this.searchText.setPreferredSize( new Dimension(Constants.searchTextWidth, 
 				Constants.searchFieldHeight));
 		this.searchText.setFont(font);
+		Action search=new AbstractAction(){
+			private static final long serialVersionUID = 1L;
+			public void actionPerformed( ActionEvent e )
+			{
+				ListAllPanel.this.doSearch();
+			}
+		};
+		
+		this.searchText.registerKeyboardAction( search,
+			    "commond",
+			    KeyStroke.getKeyStroke( "ENTER" ),
+			    JComponent.WHEN_FOCUSED );
 		
 		this.searchPanel.add(this.searchText,BorderLayout.WEST);
 		this.searchPanel.add(this.searchButton,BorderLayout.CENTER);
@@ -218,14 +229,19 @@ public class ListAllPanel extends JPanel{
 	{
 		String name=this.searchText.getText();
 		//Dish tmp=new Dish();
-		if(name.length()==0) this.listAll();;
+		//System.out.println("name len"+name.length());
+		if(name.length()==0)
+		{
+			this.listAll();
+			return;
+		}
 		int num=this.dishList.size();
 		for(int i=0;i<num;i++)
 		{
 			if(this.dishList.get(i).getName().equals(name))
 			{
 				this.showThisDishOnly(dishList.get(i));
-				break;
+				return;
 			}
 		}
 		this.showThisDishOnly(new Dish("NO RESULT",1,"noResult.jpg","No result has been found"));

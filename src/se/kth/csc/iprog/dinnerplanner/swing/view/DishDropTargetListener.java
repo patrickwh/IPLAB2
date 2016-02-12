@@ -8,16 +8,20 @@ import java.awt.dnd.DropTargetDropEvent;
 import java.awt.dnd.DropTargetEvent;
 import java.awt.dnd.DropTargetListener;
 
+import se.kth.csc.iprog.dinnerplanner.model.DinnerModel;
 import se.kth.csc.iprog.dinnerplanner.model.Dish;
 
-public class DishDropTargetListener implements DropTargetListener{
+public class DishDropTargetListener implements DropTargetListener
+{
 	
 	InformationDisplayPanel listPanel;
 	DropTarget dropTarget;
+	DinnerModel model;
 	
-	public DishDropTargetListener(InformationDisplayPanel panel)
+	public DishDropTargetListener(InformationDisplayPanel panel,DinnerModel argModel)
 	{
 		this.listPanel=panel;
+		this.model=argModel;
 		this.dropTarget=new DropTarget(listPanel,DnDConstants.ACTION_COPY,this,true,null);
 		//(Component c,int ops, DropTargetListener dtl,boolean act,FlavorMap fm)     
 	}
@@ -45,7 +49,7 @@ public class DishDropTargetListener implements DropTargetListener{
 			if(e.isDataFlavorSupported(DishTransferable.dishFlavor))
 			{
 				e.acceptDrop(DnDConstants.ACTION_COPY);
-				this.listPanel.addToList(dish);
+				model.addDishToMenu(dish);
 				e.dropComplete(true);
 				return;
 			}

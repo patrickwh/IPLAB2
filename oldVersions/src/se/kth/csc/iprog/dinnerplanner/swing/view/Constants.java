@@ -21,6 +21,7 @@ public class Constants {
 	public static String homeDir="./";
 	public static String pictureDir="images/";
 	public static String pictureSuffix=".jpg";
+	public static String dataDir="./initData/data.txt";
 	public static int verticalScrollbarUnit=20;
 	public static int informationPanelWidth=width-dividerLocation;
 	public static int guestNumLabelHeight=35;
@@ -43,10 +44,19 @@ public class Constants {
 	public static int menuEntryLabelWidth=menuEntryWidth-2*menuEntryPicWidth;
 	public static int largeBorderMargin=20;
 	public static int menuEntryRealHeight=menuEntryHeight+5;
-	public static int dishNameDisplayWindowWidth=600;
+	public static int dishNameDisplayWindowWidth=750;
 	public static int dishNameDisplayWindowHeight=600;
 	public static int dishNameBorder=20;
 	public static int dishNameInformationPanelHeight=dishNameDisplayWindowHeight/3;
 	public static int dishNameImageWidth=dishNameInformationPanelHeight-2*dishNameBorder;
 	public static int dishNameNamePanelWidth=dishNameDisplayWindowWidth-dishNameInformationPanelHeight;
+	public static int dishNameNameHeight=dishNameInformationPanelHeight/2;
+	public static int dishNameSplitHeight=dishNameDisplayWindowHeight-dishNameInformationPanelHeight;
+	public static int dishNameDividerLocation=300;
+	public static int dishNameDescriptionWidth=dishNameDividerLocation;
+	public static int dishNameTableWidth=dishNameDisplayWindowWidth-dishNameDescriptionWidth;
+	public static int dishNameNamePanelBorderWidth=20;
+	public static int dishNameTableColumnWidth2=(dishNameDividerLocation/7)*2;
+	public static int dishNameTableColumnWidth1=dishNameTableWidth-2*dishNameTableColumnWidth2;
+	public static int dishNameTableRowHeight=40;
 }
