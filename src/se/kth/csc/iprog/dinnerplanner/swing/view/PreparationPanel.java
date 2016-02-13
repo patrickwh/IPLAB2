@@ -32,7 +32,7 @@ public class PreparationPanel extends JPanel{
         // The top layout
         title.setText("Dinner menu preparation");
         title.setHorizontalAlignment(JLabel.CENTER);
-        title.setPreferredSize(new Dimension(600,100));
+        title.setPreferredSize(new Dimension(600,70));
 
         JPanel topP = new JPanel();
         topP.setLayout(new BorderLayout());
@@ -44,7 +44,7 @@ public class PreparationPanel extends JPanel{
 
         starter.setText("Starter:"+dishStarter.getName());
         starter.setHorizontalAlignment(JLabel.CENTER);
-        starter.setSize(new Dimension(600,60));
+        starter.setSize(new Dimension(600,40));
 //        starter.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
 //                Constants.dishNameInformationPanelHeight));
 
@@ -54,7 +54,7 @@ public class PreparationPanel extends JPanel{
 //        starterContent.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
 //                Constants.dishNameInformationPanelHeight));
         //title.setPreferredSize(new Dimension(20,20));
-        starterContent.setSize(new Dimension(600,140));
+        starterContent.setSize(new Dimension(600,180));
         starterContent.setLineWrap(true);
         staPanel.add(starterContent,BorderLayout.CENTER);
         topP.add(staPanel,BorderLayout.SOUTH);
@@ -64,9 +64,9 @@ public class PreparationPanel extends JPanel{
 
         // The middle layout
         JPanel midP = new JPanel();
-        midP.setSize(new Dimension(600,210));
-        main.setSize(new Dimension(600,60));
-        mainContent.setSize(new Dimension(600,150));
+        midP.setSize(new Dimension(600,220));
+        main.setSize(new Dimension(600,30));
+        mainContent.setSize(new Dimension(600,220));
         midP.setLayout(new BorderLayout());
         main.setText("Main:"+dishMain.getName());
         main.setHorizontalAlignment(JLabel.CENTER);
@@ -76,6 +76,7 @@ public class PreparationPanel extends JPanel{
         mainContent.setLineWrap(true);
         midP.add(main,BorderLayout.NORTH);
         JPanel mainPanel = new JPanel();
+        mainPanel.setSize(600,220);
         mainPanel.add(mainContent,BorderLayout.CENTER);
         midP.add(mainPanel,BorderLayout.SOUTH);
         //midP.add(mainContent,BorderLayout.SOUTH);
@@ -106,7 +107,7 @@ public class PreparationPanel extends JPanel{
 
 //        desertContent.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
 //                Constants.dishNameInformationPanelHeight));
-        title.setFont(font);
+        title.setFont(new Font("Courier", Font.BOLD,36));
         starter.setFont(font);
         main.setFont(font);
         desert.setFont(font);
@@ -133,8 +134,8 @@ public class PreparationPanel extends JPanel{
 //                Constants.dishNameInformationPanelHeight));
 //        frame.setBounds(20,20,Constants.dishNameDisplayWindowWidth,
 //                Constants.dishNameInformationPanelHeight);
-        frame.setSize(600,480);
-        this.setSize(600,480);
+        frame.setSize(600,450);
+        this.setSize(600,450);
         //frame.pack();
         frame.setVisible(true);
     }
