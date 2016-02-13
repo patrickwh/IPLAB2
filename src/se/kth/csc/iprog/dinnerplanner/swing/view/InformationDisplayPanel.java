@@ -36,8 +36,8 @@ public class InformationDisplayPanel extends JPanel implements Observer{
 	JPanel dinnerMenuPanel=new JPanel();
 	JLabel dinnerMenuLabel=new JLabel("Dinner Menu");
 	JPanel buttonPanel= new JPanel();
-	JButton preparationButton=new JButton("Preparation");
-	JButton ingredientsButton=new JButton("Ingredients");
+	public JButton preparationButton=new JButton("Preparation");
+	public JButton ingredientsButton=new JButton("Ingredients");
 	JPanel menuListPanel=new JPanel();
 	JScrollPane menuScroll;
 	JPanel scrollContentPanel=new JPanel();
@@ -136,25 +136,10 @@ public class InformationDisplayPanel extends JPanel implements Observer{
 		this.preparationButton.setFont(xsmallTextFont);
 		this.preparationButton.setPreferredSize(new Dimension(Constants.preparationButtonWidth,
 				Constants.preparationButtonHeight));
-		this.preparationButton.addMouseListener(new MouseAdapter(){
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{ // new preparation window
-				PreparationPanel pp=new PreparationPanel(null,null,null);
-				pp.creatAndShowGUI();
-			}
-		});
+		
 		this.ingredientsButton.setFont(xsmallTextFont);
 		this.ingredientsButton.setPreferredSize(new Dimension(Constants.preparationButtonWidth,
 				Constants.preparationButtonHeight));
-		this.ingredientsButton.addMouseListener(new MouseAdapter(){
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{ // new ingredients window
-				IngredientPanel ip=new IngredientPanel();
-				ip.creatAndShowGUI();
-			}
-		});
 		
 		this.buttonPanel.setLayout(new FlowLayout());
 		this.buttonPanel.setBorder(BorderFactory.createEmptyBorder(Constants.borderMargin, 
@@ -183,38 +168,6 @@ public class InformationDisplayPanel extends JPanel implements Observer{
 		this.revalidate();
 		this.repaint();
 	}
-	
-	public void removeFromList(Dish dish)
-	{
-//		int itemNum=this.menu.size();
-//		for(int i=0;i<itemNum;i++) this.scrollContentPanel.remove(0);
-//		model.removeDishFromMenu(dish);
-//		//this.transferSetToList();
-//		itemNum=this.menu.size();
-//		for(int i=0;i<itemNum;i++)
-//			this.scrollContentPanel.add(new MenuListItem(menu.get(i),i));
-//		int contentHeight=Constants.menuEntryRealHeight*itemNum;
-//		this.scrollContentPanel.setPreferredSize(new Dimension(Constants.menuEntryWidth,
-//				contentHeight));
-//		this.revalidate();
-//		this.repaint();
-	}
-	
-//	public void addToList(Dish d)
-//	{
-//		int itemNum=this.menu.size();
-//		for(int i=0;i<itemNum;i++) this.scrollContentPanel.remove(0);
-//		model.addDishToMenu(d);
-//		//this.transferSetToList();
-//		itemNum=this.menu.size();
-//		for(int i=0;i<itemNum;i++)
-//			this.scrollContentPanel.add(new MenuListItem(menu.get(i),i));
-//		int contentHeight=Constants.menuEntryRealHeight*itemNum;
-//		this.scrollContentPanel.setPreferredSize(new Dimension(Constants.menuEntryWidth,
-//				contentHeight));
-//		this.revalidate();
-//		this.repaint();
-//	}
 	
 	public int getGuestNum()
 	{
