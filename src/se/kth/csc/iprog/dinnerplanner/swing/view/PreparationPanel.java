@@ -112,6 +112,10 @@ public class PreparationPanel extends JPanel{
         main.setFont(font);
         desert.setFont(font);
 
+        starterContent.setEditable(false);
+        mainContent.setEditable(false);
+        desertContent.setEditable(false);
+
         add(topP,BorderLayout.NORTH);
 
         add(midP,BorderLayout.CENTER);
