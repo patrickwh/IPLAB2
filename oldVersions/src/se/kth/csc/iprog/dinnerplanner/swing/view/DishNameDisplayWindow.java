@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -31,13 +29,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 
-import se.kth.csc.iprog.dinnerplanner.model.ChangeMessage;
-import se.kth.csc.iprog.dinnerplanner.model.DinnerModel;
 import se.kth.csc.iprog.dinnerplanner.model.Dish;
 import se.kth.csc.iprog.dinnerplanner.model.Ingredient;
 
-public class DishNameDisplayWindow extends JFrame implements Observer
-{
+public class DishNameDisplayWindow extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
 	Dish dish;
@@ -76,10 +71,8 @@ public class DishNameDisplayWindow extends JFrame implements Observer
 			return cell;	
 		}
 	}
-	
-	public DishNameDisplayWindow(Dish d,int num,DinnerModel m)
+	public DishNameDisplayWindow(Dish d,int num)
 	{
-		m.addObserver(this);
 		this.dish=d;
 		this.guestNum=num;
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -116,7 +109,6 @@ public class DishNameDisplayWindow extends JFrame implements Observer
 				Constants.dishNameNameHeight));
 		this.cost.setPreferredSize(new Dimension(Constants.dishNameNamePanelWidth,
 				Constants.dishNameNameHeight));
-		//System.out.println("  num "+this.guestNum);
 		this.cost.setText("$ "+(dish.getCost()*guestNum)+"  for "+this.guestNum+" persons");
 		this.cost.setFont(costFont);
 		this.namePanel.setPreferredSize(new Dimension(Constants.dishNameNamePanelWidth,
@@ -238,14 +230,13 @@ public class DishNameDisplayWindow extends JFrame implements Observer
 		this.validate();
 		this.repaint();
 	}
-
-	@Override
-	public void update(Observable obs, Object obj) {
-		ChangeMessage cm=(ChangeMessage) obj;
-		if(cm.getType()==ChangeMessage.GuestNumChanged)
-		{
-			this.guestNum=(Integer) cm.getData();
-			this.cost.setText("$ "+(dish.getCost()*guestNum)+"  for "+this.guestNum+" persons");
-		}
+	
+	public static void main(String args[])
+	{
+		Dish d=new Dish("NO RESULT",1,"noResult.jpg","No result has been found");
+		d.addIngredient(new Ingredient("Carrot",500,"g",2.5));
+		d.addIngredient(new Ingredient("Egg",2,"",4.0));
+		DishNameDisplayWindow ddw=new DishNameDisplayWindow(d,3);
+		ddw.setVisible(true);
 	}
 }

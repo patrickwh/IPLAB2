@@ -1,35 +1,34 @@
 package se.kth.csc.iprog.dinnerplanner.swing.view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
+import se.kth.csc.iprog.dinnerplanner.model.ChangeMessage;
 import se.kth.csc.iprog.dinnerplanner.model.DinnerModel;
 import se.kth.csc.iprog.dinnerplanner.model.Dish;
 
-public class InformationDisplayPanel extends JPanel{
+public class InformationDisplayPanel extends JPanel implements Observer{
 	
 	private static final long serialVersionUID = 1L;
+	int guestNum=0;
+	double totalMenuCost=0;
 	JLabel guestNumLabel=new JLabel("Number of people");
 	JPanel guestNumPanel=new JPanel();
-	JSpinner guestNumSpinner=new JSpinner();
+	public JSpinner guestNumSpinner=new JSpinner();
 	JLabel costLabel=new JLabel("Total cost:");
 	JLabel numberLabel=new JLabel("$ 0.00");
 	JPanel costPanel=new JPanel();
@@ -44,114 +43,26 @@ public class InformationDisplayPanel extends JPanel{
 	JPanel scrollContentPanel=new JPanel();
 	JPanel scrollBackgrounPanel=new JPanel();
 	
-	ArrayList <Dish> menu=new ArrayList <Dish>();
+	//ArrayList <Dish> menu=new ArrayList <Dish>();
 	DinnerModel model;
-
-	public class MenuListItem extends JPanel
-	{
-		private static final long serialVersionUID = 1L;
-		
-		Dish dish=new Dish();
-		int id=0;
-		JLabel nameLabel=new JLabel();
-		JLabel costLabel=new JLabel();
-		JPanel labelPanel=new JPanel();
-		JLabel imageLabel=new JLabel();
-		JLabel removeButton= new JLabel();
-
-		public MenuListItem(Dish d,int id)
-		{
-			this.id=id;
-			this.dish=d;
-			this.imageLabel.setPreferredSize(new Dimension(Constants.menuEntryPicWidth,
-					Constants.menuEntryPicWidth));
-			Image img=new ImageIcon(Constants.homeDir+Constants.pictureDir+dish.getImage()).getImage();
-			Image newImg=img.getScaledInstance(Constants.menuEntryPicWidth,
-					Constants.menuEntryPicWidth, Image.SCALE_SMOOTH);
-			this.imageLabel.setIcon(new ImageIcon(newImg));
-			this.imageLabel.setBorder(BorderFactory.createRaisedBevelBorder());
-			
-			this.nameLabel.setText("   "+dish.getypeStr()+" : "+dish.getName());
-			this.nameLabel.setPreferredSize(new Dimension(Constants.menuEntryLabelWidth,
-				Constants.menuEntryLabelHeight));
-			this.costLabel.setText("   Cost : $ "+dish.getCost());
-			this.costLabel.setPreferredSize(new Dimension(Constants.menuEntryLabelWidth,
-					Constants.menuEntryLabelHeight));
-			this.labelPanel.setLayout(new BorderLayout());
-			this.labelPanel.add(nameLabel,BorderLayout.NORTH);
-			this.labelPanel.add(costLabel,BorderLayout.SOUTH);
-			this.labelPanel.setPreferredSize(new Dimension(Constants.menuEntryLabelWidth,
-					Constants.menuEntryHeight));
-			
-			img=new ImageIcon(Constants.homeDir+Constants.pictureDir+"remove.jpg").getImage();
-			newImg=img.getScaledInstance(Constants.menuEntryPicWidth,
-					Constants.menuEntryPicWidth, Image.SCALE_SMOOTH);
-			this.removeButton.setIcon(new ImageIcon(newImg));
-			this.removeButton.setPreferredSize(new Dimension(Constants.menuEntryPicWidth,
-					Constants.menuEntryPicWidth));
-			//this.removeButton.setBackground(Color.RED);	
-			this.removeButton.addMouseListener(new MouseAdapter(){
-				@Override
-				public void mouseClicked(MouseEvent e)
-				{
-					InformationDisplayPanel.this.removeFromList(MenuListItem.this.dish);
-				}
-				@Override
-				public void mouseEntered(MouseEvent e)
-				{
-					MenuListItem.this.removeButton.setBorder(
-							BorderFactory.createRaisedBevelBorder());
-				}
-				public void mouseExited(MouseEvent e)
-				{
-					MenuListItem.this.removeButton.setBorder(null);
-				}
-			});
-			
-			this.setPreferredSize(new Dimension(Constants.menuEntryWidth,
-				Constants.menuEntryHeight));
-			this.setLayout(new BorderLayout());
-			this.add(imageLabel, BorderLayout.WEST);
-			this.add(this.labelPanel,BorderLayout.CENTER);
-			this.add(removeButton, BorderLayout.EAST);
-			this.setBorder(BorderFactory.createEtchedBorder());
-			this.addMouseListener(new MouseAdapter(){
-				@Override
-				public void mouseClicked(MouseEvent e)
-				{
-					DishNameDisplayWindow dndw=new DishNameDisplayWindow(MenuListItem.this.dish,
-							InformationDisplayPanel.this.getGuestNum());
-					dndw.setVisible(true);
-				}
-				@Override
-				public void mouseEntered(MouseEvent e)
-				{
-					MenuListItem.this.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY,3));
-				}
-				@Override
-				public void mouseExited(MouseEvent e)
-				{
-					MenuListItem.this.setBorder(BorderFactory.createEtchedBorder());
-				}
-			});
-		}
-	}
 	
-	private void transferSetToList()
-	{
-		int num=menu.size();
-		for(int i=0;i<num;i++) menu.remove(0);
-		Iterator <Dish> itr=this.model.getFullMenu().iterator();
-		while(itr.hasNext())
-		{
-			menu.add(itr.next());
-		}
-	}
+//	private void transferSetToList()
+//	{
+//		int num=menu.size();
+//		for(int i=0;i<num;i++) menu.remove(0);
+//		Iterator <Dish> itr=this.model.getFullMenu().iterator();
+//		while(itr.hasNext())
+//		{
+//			menu.add(itr.next());
+//		}
+//	}
 	
 	public InformationDisplayPanel(DinnerModel m)
 	{
 		this.model=m;
-		this.transferSetToList();
+		// register this view as one of the model's observers
+		this.model.addObserver(this);
+		//this.transferSetToList();
 		
 		Font smallTextFont=new Font ("Bodoni MT",Font.BOLD,18);
 		Font xsmallTextFont=new Font ("Bodoni MT",Font.BOLD,16);
@@ -165,11 +76,6 @@ public class InformationDisplayPanel extends JPanel{
 		this.guestNumSpinner.setFont(smallTextFont);
 		this.guestNumSpinner.setPreferredSize(new Dimension(Constants.guestNumSpinnerWidth,
 				Constants.guestNumSpinnerHeight));
-		this.guestNumSpinner.addChangeListener(new ChangeListener(){
-			public void stateChanged(ChangeEvent arg0) {	
-				InformationDisplayPanel.this.setTotalCost();
-			}	
-		});
 		
 		this.guestNumPanel.setPreferredSize(new Dimension(Constants.informationPanelWidth,
 				Constants.guestNumLabelHeight));
@@ -207,13 +113,8 @@ public class InformationDisplayPanel extends JPanel{
 		this.dinnerMenuLabel.setHorizontalAlignment(JLabel.CENTER);
 		this.dinnerMenuLabel.setVerticalAlignment(JLabel.CENTER);
 		
-		int rowNum=this.menu.size();
-		int contentHeight=Constants.menuEntryRealHeight*rowNum;
-		this.scrollContentPanel.setPreferredSize(new Dimension(Constants.menuEntryWidth,
-				contentHeight));
 		this.scrollContentPanel.setLayout(new FlowLayout());
-		for(int i=0;i<rowNum;i++)
-			this.scrollContentPanel.add(new MenuListItem(menu.get(i),i));
+		
 		this.menuScroll=new JScrollPane(scrollContentPanel);
 		this.menuScroll.setPreferredSize(new Dimension(Constants.menuEntryWidth,
 				Constants.menuListHeight));
@@ -267,56 +168,84 @@ public class InformationDisplayPanel extends JPanel{
 		this.add(buttonPanel, BorderLayout.SOUTH);
 		this.setPreferredSize(new Dimension(Constants.informationPanelWidth,Constants.height));
 		
-//		topPanel.setLayout(new GridLayout(2,2));
-//		this.topPanel.add(guestNumLabel);
-//		this.topPanel.add(guestNumSpinner);
-//		this.topPanel.add(costLabel);
-//		this.topPanel.add(numberLabel);
-		
+	}
+	
+	private void refreshMenuList(ArrayList<Dish> list)
+	{
+		int itemNum=scrollContentPanel.getComponentCount();
+		for(int i=0;i<itemNum;i++) this.scrollContentPanel.remove(0);
+		itemNum=list.size();
+		for(int i=0;i<itemNum;i++)
+			this.scrollContentPanel.add(new MenuListItem(list.get(i),this.guestNum,model));
+		int contentHeight=Constants.menuEntryRealHeight*itemNum;
+		this.scrollContentPanel.setPreferredSize(new Dimension(Constants.menuEntryWidth,
+				contentHeight));
+		this.revalidate();
+		this.repaint();
 	}
 	
 	public void removeFromList(Dish dish)
 	{
-		int itemNum=this.menu.size();
-		for(int i=0;i<itemNum;i++) this.scrollContentPanel.remove(0);
-		model.removeDishFromMenu(dish);
-		this.transferSetToList();
-		itemNum=this.menu.size();
-		for(int i=0;i<itemNum;i++)
-			this.scrollContentPanel.add(new MenuListItem(menu.get(i),i));
-		int contentHeight=Constants.menuEntryRealHeight*itemNum;
-		this.scrollContentPanel.setPreferredSize(new Dimension(Constants.menuEntryWidth,
-				contentHeight));
-		this.revalidate();
-		this.repaint();
+//		int itemNum=this.menu.size();
+//		for(int i=0;i<itemNum;i++) this.scrollContentPanel.remove(0);
+//		model.removeDishFromMenu(dish);
+//		//this.transferSetToList();
+//		itemNum=this.menu.size();
+//		for(int i=0;i<itemNum;i++)
+//			this.scrollContentPanel.add(new MenuListItem(menu.get(i),i));
+//		int contentHeight=Constants.menuEntryRealHeight*itemNum;
+//		this.scrollContentPanel.setPreferredSize(new Dimension(Constants.menuEntryWidth,
+//				contentHeight));
+//		this.revalidate();
+//		this.repaint();
 	}
 	
-	public void addToList(Dish d)
-	{
-		int itemNum=this.menu.size();
-		for(int i=0;i<itemNum;i++) this.scrollContentPanel.remove(0);
-		model.addDishToMenu(d);
-		this.transferSetToList();
-		itemNum=this.menu.size();
-		for(int i=0;i<itemNum;i++)
-			this.scrollContentPanel.add(new MenuListItem(menu.get(i),i));
-		int contentHeight=Constants.menuEntryRealHeight*itemNum;
-		this.scrollContentPanel.setPreferredSize(new Dimension(Constants.menuEntryWidth,
-				contentHeight));
-		this.revalidate();
-		this.repaint();
-	}
+//	public void addToList(Dish d)
+//	{
+//		int itemNum=this.menu.size();
+//		for(int i=0;i<itemNum;i++) this.scrollContentPanel.remove(0);
+//		model.addDishToMenu(d);
+//		//this.transferSetToList();
+//		itemNum=this.menu.size();
+//		for(int i=0;i<itemNum;i++)
+//			this.scrollContentPanel.add(new MenuListItem(menu.get(i),i));
+//		int contentHeight=Constants.menuEntryRealHeight*itemNum;
+//		this.scrollContentPanel.setPreferredSize(new Dimension(Constants.menuEntryWidth,
+//				contentHeight));
+//		this.revalidate();
+//		this.repaint();
+//	}
 	
 	public int getGuestNum()
 	{
 		return (Integer) this.guestNumSpinner.getValue();
 	}
 	
-	public void setTotalCost()
+	private void setTotalCost(int num)
 	{
+		this.guestNum=num;
 		String str="$ ";
-		int num=(Integer) this.guestNumSpinner.getValue();
-		str+=num*model.getTotalMenuPrice();
+		str+=num*this.totalMenuCost;
 		this.numberLabel.setText(str);
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void update(Observable obs, Object obj) {
+		ChangeMessage cm=(ChangeMessage) obj;
+		if(cm.getType()==ChangeMessage.GuestNumChanged)
+		{
+			int v=(Integer) cm.getData();
+			this.setTotalCost(v);
+			//System.out.println(" num in information "+this.guestNum);
+		}else if(cm.getType()==ChangeMessage.MenuChanged)
+		{
+			this.refreshMenuList((ArrayList<Dish>)cm.getData());
+		}else if(cm.getType()==ChangeMessage.ToatalMenuCostCahnged)
+		{
+			this.totalMenuCost=(Double) cm.getData();
+			this.setTotalCost(this.guestNum);
+		}
+	}
+	
 }

@@ -1,4 +1,4 @@
-French toast#1#toast.jpg
+French Toast#1#toast.jpg
 In a large mixing bowl, beat the eggs. Add the milk, brown sugar and nutmeg; stir well to combine. Soak bread slices in the egg mixture until saturated. Heat a lightly oiled griddle or frying pan over medium high heat. Brown slices on both sides, sprinkle with cinnamon and serve hot.
 eggs#2#(*)#1
 milk#30#ml#6
@@ -6,7 +6,7 @@ brown sugar#7#g#1
 ground nutmeg#0.5#g#12
 white bread#2#slices#2
 #*#
-Meat balls#2#meatballs.jpg
+Meat Balls#2#meatballs.jpg
 Preheat an oven to 400 degrees F (200 degrees C). Place the beef into a mixing bowl, and season with salt, onion, garlic salt, Italian seasoning, oregano, red pepper flakes, hot pepper sauce, and Worcestershire sauce; mix well. Add the milk, Parmesan cheese, and bread crumbs. Mix until evenly blended, then form into 1 1/2-inch meatballs, and place onto a baking sheet. Bake in the preheated oven until no longer pink in the center, 20 to 25 minutes.
 extra lean ground beef#115#g#20
 sea salt#0.7#g#3
@@ -20,14 +20,14 @@ milk#20#ml#4
 grated Parmesan cheese#5#g#8
 seasoned bread crumbs#115#g#4
 #*#
-Coconut soup#1#Coconutsoup.jpg
+Coconut Soup#1#Coconutsoup.jpg
 Vegetables, Gorgeous Winter Soups, Halloween/Bonfire Night, Dairy-free
 potatoes#2#(*)#0.5
 onions#1#(*)#0.5
 milk#60#ml#6
 lentils#125#g#2
 #*#
-Spring pie#1#Springpie.jpg
+Spring Pie#1#Springpie.jpg
 Kids will love making this pie with you as it's a very messy, throw-it-all-in dish.
 spinach#200#g#3
 milk#200#ml#8
@@ -35,20 +35,20 @@ eggs#6#(*)#3
 lemon#1#(*)#1
 bacon#6#(*)#3
 #*#
-gobi 65#1#gobi65.jpg
+Gobi 65#1#gobi65.jpg
 this is a dry version of gobi 65 and does not include sauces like soy sauce or tomato sauce. the recipe is a homely version and not a restaurant style version.
 juice#30#ml#0.5
 cauliflower#350#g#1
 eggs#6#(*)#3
 #*#
-Grilled scallops#1#Grilledscallops.jpg
+Grilled Scallops#1#Grilledscallops.jpg
 To make the dressing, chop the coriander and mint leaves, then blitz with the anchovies for 1 minute. Add the oil and squeeze in 25ml of the lime juice and blitz for another minute.
 breadcrumbs#100#g#13
 rapeseed oil#200#ml#8
 mint#0.5#(*)#1
 lemon#0.5#(*)#2
 #*#
-Epic egg salad#1#Epiceggsalad.jpg
+Epic Egg Salad#1#Epiceggsalad.jpg
 When they’re properly done, egg salads are out of this world. I’ve made a salad cream to ensure this old-school dish is top notch.
 spinach#200#g#3
 cress#20#g#8
@@ -56,7 +56,19 @@ eggs#4#(*)#2
 lemon#0.5#(*)#0.5
 chilli#1#(*)#1
 #*#
-Pork fried noodles#2#Porkfriednoodles.jpg
+Mixed Crostini#1#mixed_crostini.jpg
+You can mix and match these four types of crostini - cherry tomato, roasted pepper, crab and egg - to taste. A 35cm-long baguette yields about 25 slices and each topping is enough for 16 crostini, so these recipes will make enough for 64 canapés - perfect for a small drinks party. To serve all four as hearty nibbles before a small dinner party, halve the quantities so you make 32 canapés. The better the quality of your bread, the more delicious your crostini, but you can also serve these toppings on savoury biscuits or pastry bases.  
+good-quality sourdough baguettes#3#(*)#15
+extra-virgin olive oil#3#tbsp#2
+white crabmeat#200#g#5.5
+tem celery,diced#1#(*)#7.5
+spring onion,diced#1#(*)#1.5
+Thai chilli,diced#1#(*)#1.0
+coriander leaves,ripped#16#(*)#15
+grated lime#1#(*)#3.5
+eggs#3#(*)#4.5
+#*#
+Pork Fried Noodles#2#Porkfriednoodles.jpg
 Shred or roughly chop the pork. Peel and finely chop the garlic and ginger. Trim and finely slice the whites and greens of the spring onions.
 frozen peas#50#g#1
 roast pork#150#g#10
@@ -64,7 +76,7 @@ onions#0.5#(*)#05
 rice vermicelli#300#g#2
 garlic#2#(*)#2
 #*#
-Jamie's flash steak#2#Jamie's flash steak.jpg
+Flash Steak#2#Jamie's flash steak.jpg
 To make the salsa, quarter the cherry and baby plum tomatoes. Deseed the larger plum tomatoes, then cut into strips. Pick and slice the basil leaves, then peel and finely slice the garlic.
 lemon#1#(*)#1
 tomatoes#150#g#6
@@ -72,14 +84,14 @@ steaks#4#(*)#40
 sage leaves#16#(*)#3
 prosciutto#12#(*)#9
 #*#
-chicken & chips#2#chicken & chips.jpg
+Chicken & Chips#2#chicken & chips.jpg
 Position a tray on the shelf below to catch the juices (you’ll need these for the chips), and roast the chicken for 1 hour 30 minutes, or until cooked through, turning the chicken over after 45 minutes to crisp up the rest of the skin.
 chicken#3500#g#30
 potatoes#2000#g#8
 yoghurt#5#g#0.5
 garlic#2#(*)#1
 #*#
-Tah chin#2#Tah chin.jpg
+Tah Chin#2#Tah chin.jpg
 To make the dressing, chop the coriander and mint leaves, then blitz with the anchovies for 1 minute. Add the oil and squeeze in 25ml of the lime juice and blitz for another minute.
 lamb#850#g#20
 butter#25#g#1
@@ -87,7 +99,7 @@ yoghurt#250#ml#2
 garlic#2#(*)#1
 onions#2#(*)#2
 #*#
-Duck ceviche#2#Duck ceviche.jpg
+Duck Ceviche#2#Duck ceviche.jpg
 You need aji amarillo paste for this dish – made from a fruity-flavoured orange chilli that’s used throughout Peru, the home of ceviches.
 duck breast#250#g#17
 duck leg#350#g#20
@@ -96,15 +108,15 @@ onions#2#(*)#2
 lemon#1#(*)#1
 orange juice#250#ml#2
 #*#
-whoopie pies#3#whoopie pies.jpg
-Everyone’s mad for whoopie pies in the States, and they’re catching on here too. They’re sort of the perfect little sweet sandwich. I’ve gone for a classic combo here but you can be as inventive as you like.
+Whoopie Pies#3#whoopie pies.jpg
+Everyone's mad for whoopie pies in the States, and they're catching on here too. They're sort of the perfect little sweet sandwich. I've gone for a classic combo here but you can be as inventive as you like.
 flour#350#g#3
 sugar#175#g#1
 bananas#3#(*)#2
 egg#1#(*)#1
 milk#200#ml#1
 #*#
-Cherry clafoutis#3#Cherry clafoutis.jpg
+Cherry Clafoutis#3#Cherry clafoutis.jpg
 Dot the cherries (stoned, if you prefer) around the base of the dish, then place in the oven for 5 minutes so the fruit can begin to soften.
 flour#60#g#1
 sugar#60#g#0.5
@@ -112,7 +124,7 @@ cherries#300#g#5
 egg#3#(*)#3
 milk#300#ml#1
 #*#
-Cherry brownies#3#Cherry brownies.jpg
+Cherry Brownies#3#Cherry brownies.jpg
 Melt the butter and dark chocolate in a bowl over a saucepan of simmering water (don’t let the bowl touch the water).Transfer the mixture to the tin, then bake in the oven for 15 to 20 minutes. You want them a little gooey in the middle.
 flour#75#g#1
 sugar#225#g#2
@@ -121,7 +133,7 @@ egg#3#(*)#3
 milk#50#ml#0.5
 butter#130#g#2
 #*#
-Summer pudding#3#Summer pudding.jpg
+Summer Pudding#3#Summer pudding.jpg
 Place all the berries in a large, heavy-based saucepan with the sugar, orange juice and vanilla paste (if using). Cook over a low heat for 3 to 5 minutes, or until the sugar dissolves and juices start bleeding from the fruit. Set aside to cool.
 berries#800#g#15
 sugar#150#g#1.5
@@ -129,7 +141,7 @@ orange#1#(*)#1
 bread#7#(*)#3
 berry jam#15#g#1
 #*#
-fruit salad fro-yo#3#fruit salad fro-yo.jpg
+Fruit Salad Fro-yo#3#fruit salad fro-yo.jpg
 Blitz the fruit, yoghurt, 2 tablespoons of honey and the limoncello (if using) in a food processor until smooth. Taste and add more honey if needed.
 yoghurt#250#ml#2
 mixed fruit#1000#g#7
@@ -145,9 +157,7 @@ egg#4#(*)#3
 milk#50#ml#0.5
 butter#100#g#2
 #*#
-
-
-
+#END#
 
 
 

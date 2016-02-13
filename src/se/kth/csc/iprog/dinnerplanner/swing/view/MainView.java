@@ -24,11 +24,11 @@ public class MainView extends JPanel {
 	JButton minusButton = new JButton();
 	JSplitPane split=new JSplitPane();
 	JTabbedPane tab=new JTabbedPane();
-	ListAllPanel starterPanel;
-	ListAllPanel mainPanel;
-	ListAllPanel desertPanel;
+	public ListAllPanel starterPanel;
+	public ListAllPanel mainPanel;
+	public ListAllPanel desertPanel;
 	DinnerModel model;
-	InformationDisplayPanel informationPanel;
+	public InformationDisplayPanel informationPanel;
 	
 	private void init()
 	{
@@ -68,6 +68,8 @@ public class MainView extends JPanel {
 			
 		this.setPreferredSize(new Dimension(Constants.width, Constants.height));
 		this.add(this.split);
-		new DishDropTargetListener(this.informationPanel);		
-	}	
+		//new DishDropTargetListener(this.informationPanel);		
+	}
+	
+	
 }

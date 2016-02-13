@@ -9,7 +9,6 @@ import java.awt.dnd.DragSource;
 import javax.swing.BorderFactory;
 
 import se.kth.csc.iprog.dinnerplanner.model.Dish;
-import se.kth.csc.iprog.dinnerplanner.swing.view.ListAllPanel.DishDisplayPanel;
 
 public class DishDragGestureListener implements DragGestureListener{
 

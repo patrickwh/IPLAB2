@@ -31,15 +31,10 @@ public class DinnerPlanner extends JFrame {
 		//Initiating the main JFrame
 		DinnerPlanner dinnerPlanner = new DinnerPlanner();
 		dinnerPlanner.setTitle("Dinner Planner");
-
 		
 		//Creating the first view
 		MainView mainView = new MainView(model);
-		//Create main controller
-		DinnerPlannerController controller=new DinnerPlannerController(model,mainView);
-		controller.registerAllListener();
-		//Create drag and drop controller
-		new DishDropTargetListener(mainView.informationPanel,model);
+		
 		//Adding the view to the main JFrame
 		dinnerPlanner.getContentPane().add(mainView);
 		
