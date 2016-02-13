@@ -33,9 +33,9 @@ public class IngredientPanel extends JPanel {
     class MyTableModel extends AbstractTableModel {
         private String[] columnNames = { "Ingredients", "Quantity", "Cost"};
 
-        private Object[][] data = { { "Egg", "11",  new Integer(5)+"$" },
-                { "Duck", "9",  new Integer(8)+"$" },
-                { "Pork", "18",  new Integer(2)+"$"},
+        private Object[][] data = { { "Egg", "11"+" ",  new Integer(5)+"$" },
+                { "Duck", "300"+"g",  new Integer(8)+"$" },
+                { "Pork", "180"+"g",  new Integer(2)+"$"},
         };
 
         public int getColumnCount() {
