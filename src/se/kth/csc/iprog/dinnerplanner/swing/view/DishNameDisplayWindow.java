@@ -82,43 +82,49 @@ public class DishNameDisplayWindow extends JFrame implements Observer
 		m.addObserver(this);
 		this.dish=d;
 		this.guestNum=num;
+		// release the resources when closing the window
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
+		// create some different fonts
 		Font nameFont=new Font("Informal Roman",Font.BOLD,38);
 		Font costFont=new Font("Segoe Print",Font.BOLD,20);
 		Font tableFont=new  Font("Gill Sans MT",Font.PLAIN,20);
 		
+		// set window location and size
 		this.setBounds((Constants.widthDf-Constants.dishNameDisplayWindowWidth)/2,
 				(Constants.heightDf-Constants.dishNameDisplayWindowHeight)/2, 
 				Constants.dishNameDisplayWindowWidth, Constants.dishNameDisplayWindowHeight);
+		// set size layout add component to the content pane
 		this.setContentPane(this.content);
 		this.content.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
 				Constants.dishNameDisplayWindowHeight));
 		this.content.setLayout(new BorderLayout());
 		this.content.add(nameInformationPanel, BorderLayout.NORTH);
 		this.content.add(split,BorderLayout.CENTER);
-		
+		// resize the image to fit the size
 		Image img=new ImageIcon(Constants.homeDir+Constants.pictureDir+this.dish.getImage()).getImage();
 		Image newImg=img.getScaledInstance(Constants.dishNameImageWidth, Constants.dishNameImageWidth, 
 				Image.SCALE_SMOOTH);
 		this.image.setIcon(new ImageIcon(newImg));
 		this.image.setBorder(BorderFactory.createRaisedBevelBorder());
+		// set image panel parameters
 		this.imagePanel.setPreferredSize(new Dimension(Constants.dishNameInformationPanelHeight,
 				Constants.dishNameInformationPanelHeight));
 		this.imagePanel.setLayout(new BorderLayout());
 		this.imagePanel.add(image,BorderLayout.CENTER);
 		this.imagePanel.setBorder(BorderFactory.createEmptyBorder(Constants.dishNameBorder, 
 				Constants.dishNameBorder, Constants.dishNameBorder, Constants.dishNameBorder));
-		
+		// set name label parameters
 		this.name.setText(dish.getName());
 		this.name.setFont(nameFont);
 		this.name.setPreferredSize(new Dimension(Constants.dishNameNamePanelWidth,
 				Constants.dishNameNameHeight));
+		// set cost label parameters
 		this.cost.setPreferredSize(new Dimension(Constants.dishNameNamePanelWidth,
 				Constants.dishNameNameHeight));
-		//System.out.println("  num "+this.guestNum);
 		this.cost.setText("$ "+(dish.getCost()*guestNum)+"  for "+this.guestNum+" persons");
 		this.cost.setFont(costFont);
+		// set name panel parameters
 		this.namePanel.setPreferredSize(new Dimension(Constants.dishNameNamePanelWidth,
 				Constants.dishNameInformationPanelHeight));
 		this.namePanel.setLayout(new BorderLayout());
@@ -127,27 +133,32 @@ public class DishNameDisplayWindow extends JFrame implements Observer
 		this.namePanel.setBorder(BorderFactory.createEmptyBorder
 				(Constants.dishNameNamePanelBorderWidth, Constants.dishNameNamePanelBorderWidth,
 						Constants.dishNameNamePanelBorderWidth, Constants.dishNameNamePanelBorderWidth));
-		
+		// set name information panel parameters
 		this.nameInformationPanel.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
 				Constants.dishNameInformationPanelHeight));
 		this.nameInformationPanel.setLayout(new BorderLayout());
 		this.nameInformationPanel.add(this.imagePanel, BorderLayout.WEST);
 		this.nameInformationPanel.add(this.namePanel, BorderLayout.CENTER);
-		
+		// set description not editable
 		this.description.setEditable(false);
+		// set description automatic line wrap
 		this.description.setLineWrap(true);
 		this.description.setText(dish.getDescription());
 		this.description.setFont(costFont);
-		this.description.setOpaque(false);// Translucent background
+		// set translucent background, same color as window background
+		this.description.setOpaque(false);
+		// crate a scroll pane containing the text area
 		this.descriptionScroll=new JScrollPane(this.description,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		this.descriptionScroll.setPreferredSize(new Dimension(Constants.dishNameDescriptionWidth,
 				Constants.dishNameSplitHeight));
+		// set cursor at the start
 		this.description.setSelectionStart(0);
 		this.description.setSelectionEnd(0);
+		// set scroll bar at the start
 		this.descriptionScroll.getVerticalScrollBar().setValue(0);
 		
-		
+		// crate a new table using specified cell renderer
 		this.table=new JTable(){
 			private static final long serialVersionUID = 1L;
 
@@ -169,6 +180,7 @@ public class DishNameDisplayWindow extends JFrame implements Observer
 				DishNameDisplayWindow.this.sortTbaleByKey(columnNo);
 			}
 		});
+		// set different column width
 		this.table.getColumn("Ingredient").setPreferredWidth(Constants.dishNameTableColumnWidth1);
 		this.table.getColumn("Quantity").setPreferredWidth(Constants.dishNameTableColumnWidth2);
 		this.table.getColumn("Cost").setPreferredWidth(Constants.dishNameTableColumnWidth2);

@@ -16,7 +16,7 @@ public class Constants {
 	public static int dishNumInARow=3;
 	public static int dishDisplayWidth=(tabWidth-interDishDisplayMargin*(dishNumInARow+1))
 			/(dishNumInARow);
-	public static int dishNameDisplayLabelHeight=30;
+	public static int dishNameDisplayLabelHeight=50;
 	public static int dishDisplayHeight=dishDisplayWidth+dishNameDisplayLabelHeight;
 	public static String homeDir="./";
 	public static String pictureDir="images/";
