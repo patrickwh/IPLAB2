@@ -3,6 +3,7 @@ package se.kth.csc.iprog.dinnerplanner.swing;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -15,8 +16,10 @@ import javax.swing.event.ChangeListener;
 
 import se.kth.csc.iprog.dinnerplanner.model.DinnerModel;
 import se.kth.csc.iprog.dinnerplanner.model.Dish;
+import se.kth.csc.iprog.dinnerplanner.swing.view.IngredientPanel;
 import se.kth.csc.iprog.dinnerplanner.swing.view.ListAllPanel;
 import se.kth.csc.iprog.dinnerplanner.swing.view.MainView;
+import se.kth.csc.iprog.dinnerplanner.swing.view.PreparationPanel;
 
 public class DinnerPlannerController implements ActionListener, ChangeListener
 {
@@ -82,6 +85,24 @@ public class DinnerPlannerController implements ActionListener, ChangeListener
 		model.setNumberOfGuests(num);
 	}
 	
+	private void createPreparationWindow()
+	{
+		Dish starter=model.getNotSelect(Dish.STARTER);
+		Dish main=model.getNotSelect(Dish.MAIN);
+		Dish desert=model.getNotSelect(Dish.DESERT);
+		Iterator<Dish> itr=model.getFullMenu().iterator();
+		while(itr.hasNext()) 
+		{
+			Dish tmp=itr.next();
+			if(tmp.getType()==Dish.STARTER) starter=tmp;
+			else if(tmp.getType()==Dish.MAIN) main=tmp;
+			else desert=tmp;
+		}
+		PreparationPanel pp=new PreparationPanel(starter,main,desert);
+		model.addObserver(pp);
+		pp.creatAndShowGUI();
+	}
+	
 	public DinnerPlannerController(DinnerModel argm,MainView argv)
 	{
 		this.model=argm;
@@ -103,6 +124,10 @@ public class DinnerPlannerController implements ActionListener, ChangeListener
 		view.desertPanel.searchButton.addActionListener(this);
 		// register guest number spinner change listener
 		view.informationPanel.guestNumSpinner.addChangeListener(this);
+		// register preparation button action listener
+		view.informationPanel.preparationButton.addActionListener(this);
+		// register ingredient button action listener
+		view.informationPanel.ingredientsButton.addActionListener(this);
 	}
 	@Override
 	public void actionPerformed(ActionEvent ae) {
@@ -113,8 +138,18 @@ public class DinnerPlannerController implements ActionListener, ChangeListener
 			doSearch(view.mainPanel,model.getFullListOfSpcifiedType(Dish.MAIN));
 		else if(ae.getSource().equals(view.desertPanel.searchButton))
 			doSearch(view.desertPanel,model.getFullListOfSpcifiedType(Dish.DESERT));
+		else if(ae.getSource()==view.informationPanel.preparationButton) 
+			createPreparationWindow();
+		else if(ae.getSource()==view.informationPanel.ingredientsButton) 
+			createIngredientWindow();
 		
 	}
+	private void createIngredientWindow() {
+		IngredientPanel ip=new IngredientPanel();
+		ip.creatAndShowGUI();
+	}
+
+
 	@Override
 	public void stateChanged(ChangeEvent ae) {
 
@@ -123,7 +158,6 @@ public class DinnerPlannerController implements ActionListener, ChangeListener
 			JSpinner js= (JSpinner) ae.getSource();
 			setGuestNum((Integer)js.getValue());
 		}
-	
 	}
 
 }

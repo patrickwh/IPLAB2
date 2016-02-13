@@ -22,6 +22,10 @@ public class Constants {
 	public static String pictureDir="images/";
 	public static String pictureSuffix=".jpg";
 	public static String dataDir="./initData/data.txt";
+	public static String notSelctName="NOT select";
+	public static String notSelctDescription="You have NOT selet a dish in specified type";
+	public static String notSelctPic="noResult.jpg";
+	public static int dishTypeNum=3;
 	public static int verticalScrollbarUnit=20;
 	public static int informationPanelWidth=width-dividerLocation;
 	public static int guestNumLabelHeight=35;
@@ -59,4 +63,14 @@ public class Constants {
 	public static int dishNameTableColumnWidth2=(dishNameDividerLocation/7)*2;
 	public static int dishNameTableColumnWidth1=dishNameTableWidth-2*dishNameTableColumnWidth2;
 	public static int dishNameTableRowHeight=40;
+	public static int preparationPanelWidth=700;
+	public static int preparationPanelHeight=600;
+	public static int preparationPanelTitleHeight=preparationPanelHeight/10;
+	public static int preparationPanelNameHeight=(preparationPanelTitleHeight*2)/3;
+	public static int preparationPanelDescriptionHeight=(preparationPanelHeight-preparationPanelTitleHeight-
+			3*preparationPanelNameHeight)/3;
+	public static int preparationPanelTopHeight=preparationPanelTitleHeight+preparationPanelNameHeight+
+			preparationPanelDescriptionHeight;
+	public static int preparationPanelCenterHeight=preparationPanelNameHeight+preparationPanelDescriptionHeight;
+	public static int preparetionPanelBottomHeight=preparationPanelCenterHeight;
 }

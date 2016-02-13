@@ -196,6 +196,9 @@ public class DinnerModel extends Observable implements IDinnerModel {
 							(ChangeMessage.ToatalMenuCostCahnged,this.getTotalMenuPrice()));
 					this.setChanged();
 					this.notifyObservers(new ChangeMessage(ChangeMessage.MenuChanged,this.getMunuList()));
+					this.setChanged();
+					this.notifyObservers(new ChangeMessage(ChangeMessage.MenuCahngedForPreparation,
+							this.getMunuListForPreparation()));
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -211,6 +214,9 @@ public class DinnerModel extends Observable implements IDinnerModel {
 					(ChangeMessage.ToatalMenuCostCahnged,this.getTotalMenuPrice()));
 			this.setChanged();
 			this.notifyObservers(new ChangeMessage(ChangeMessage.MenuChanged,this.getMunuList()));
+			this.setChanged();
+			this.notifyObservers(new ChangeMessage(ChangeMessage.MenuCahngedForPreparation,
+					this.getMunuListForPreparation()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -226,6 +232,23 @@ public class DinnerModel extends Observable implements IDinnerModel {
 		}
 		return list;
 	}
+	private ArrayList<Dish> getMunuListForPreparation()
+	{
+		ArrayList<Dish> list=this.getMunuList();
+		boolean hasStarter=false;
+		boolean hasMain=false;
+		boolean hasDesert=false;
+		for(int i=0;i<list.size();i++)
+		{
+			if(list.get(i).getType()==Dish.STARTER) hasStarter=true;
+    		else if(list.get(i).getType()==Dish.MAIN) hasMain=true;
+    		else hasDesert=true;
+		}
+		if(!hasStarter) list.add(this.getNotSelect(Dish.STARTER));
+		if(!hasMain) list.add(this.getNotSelect(Dish.MAIN));
+		if(!hasDesert) list.add(this.getNotSelect(Dish.DESERT));
+		return list;
+	}
 	@Override
 	public void removeDishFromMenu(Dish dish) {
 		if(this.menu.contains(dish))
@@ -238,6 +261,9 @@ public class DinnerModel extends Observable implements IDinnerModel {
 						(ChangeMessage.ToatalMenuCostCahnged,this.getTotalMenuPrice()));
 				this.setChanged();
 				this.notifyObservers(new ChangeMessage(ChangeMessage.MenuChanged,this.getMunuList()));
+				this.setChanged();
+				this.notifyObservers(new ChangeMessage(ChangeMessage.MenuCahngedForPreparation,
+						this.getMunuListForPreparation()));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -259,5 +285,9 @@ public class DinnerModel extends Observable implements IDinnerModel {
 	public Dish getNullDish()
 	{
 		return new Dish("NO RESULT",1,"noResult.jpg","No result has been found");
+	}
+	public Dish getNotSelect(int type)
+	{
+		return new Dish("NOT select",type,"noResult.jpg","You have NOT selet a dish in specified type");
 	}
 }

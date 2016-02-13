@@ -5,11 +5,12 @@ public class ChangeMessage
 	public static int GuestNumChanged=0;
 	public static int MenuChanged=1;
 	public static int ToatalMenuCostCahnged=2;
+	public static int MenuCahngedForPreparation=3;
 	int type;
 	Object value;
 	public ChangeMessage (int t,Object v) throws Exception
 	{
-		if(t!=GuestNumChanged&&t!=MenuChanged&&t!=ToatalMenuCostCahnged)
+		if(t!=GuestNumChanged&&t!=MenuChanged&&t!=ToatalMenuCostCahnged&&t!=MenuCahngedForPreparation)
 			throw new Exception();
 		this.type=t;
 		this.value=v;
