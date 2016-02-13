@@ -128,7 +128,6 @@ public class PreparationPanel extends JPanel{
 
 
         this.setOpaque(true);
-        //this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         frame.setContentPane(this);
 //        this.setPreferredSize(new Dimension(Constants.dishNameDisplayWindowWidth,
 //                Constants.dishNameInformationPanelHeight));
