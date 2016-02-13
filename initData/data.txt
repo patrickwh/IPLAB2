@@ -157,6 +157,34 @@ egg#4#(*)#3
 milk#50#ml#0.5
 butter#100#g#2
 #*#
+Portuguese Chicken#2#PORTUGUESE_CHICKEN.jpg
+Place the lemon juice, oil, chilli and garlic in a medium glass or ceramic bowl. Season with salt, and whisk to combine, add the chicken and turn to coat, cover with clingfilm and marinate in the fridge for 30 minutes.Combine the mayonnaise and garlic in a small bowl. Season to taste with salt, and pepper.Heat the oven to 200°C (gas mark 6). Drain the chicken from the marinade and dry with kitchen paper. Heat a large griddle pan and sear each of the chicken pieces for about 2 minutes on each side. Transfer the pan to the oven (with the chicken skin side up) and roast for about 20 minutes, or until cooked.Meanwhile, make the piri-piri dressing by putting the vinegar, chillies, sherry and oil in a screw top jar, shake well, and serve with the chicken.
+Lemo,juice#2#(*)#1.5
+olive oil#3#tbsp#2
+dried hot chilli flakes#2#tsp#1
+cloves garlic,crushed#2#(*)#2
+chicken thighs#8#(*)#30
+mayonnaise#150#ml#1.5
+red wine vinegar#2#tbsp#1.5
+hot red chillies#25#g#2.5
+dry sherry#2#tbsp#2
+#*#
+Pumpkin & Ginger Cupcakes#3#pumpkin-cupcakes.jpg
+Preheat the oven to 190c/fan 170c/gas mark 5.Cream together the butter and sugar until the mixture is light and fluffy in appearance. Add the vanilla extract. Beat the eggs in one at a time. Add the stem ginger and the pumpkin to the mixture and stir until evenly blended. Stir in the flour, baking powder and the spices.Fill the cupcake or muffin cases three quarters full with the mixture. Bake for 25 minutes or until firm to the touch. Then take out of the oven and transfer on to a cooling rack.When the cakes are nearly cool start making the icing. Cream together the butter, splash of milk and cream cheese. Once blended, add the icing sugar and whisk together until smooth. If you prefer a thicker icing, add more icing sugar.Spread some of the icing on top of your cupcakes using a spoon, or fill a piping bag and pipe a pretty swirl. Top the cupcakes with sliced stem ginger, crystallised ginger, a sprinkling of cinnamon or anything else that takes your fancy. 
+butter unsalted, softened#20#g#4
+unrefined light muscovado sugar#175#g#1.0
+free range eggs#2#(*)#3
+stem ginger in syrup#85#g#1
+pumpkin grated#250#g#2.5
+plain white flour#200#g#1
+baking powder#2#tsp#1
+all spice#1.5#tsp#0.5
+ground ginger#1.5#tsp#1
+ground cloves#1.25#tsp#1
+glace cheries#1.25#tsp#3
+ground nutmeg#1.25#tsp#1.5
+vanilla extract#1#tsp#1
+#*#
 #END#
 
 

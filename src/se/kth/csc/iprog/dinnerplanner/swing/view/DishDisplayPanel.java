@@ -46,9 +46,9 @@ public class DishDisplayPanel extends JPanel{
 		this.dishNameLabel.setPreferredSize(new Dimension(Constants.dishDisplayWidth,
 			    Constants.dishNameDisplayLabelHeight));
 		this.dishNameLabel.setHorizontalAlignment(JLabel.CENTER);
-		this.dishNameLabel.setVerticalAlignment(JLabel.CENTER);		
+		this.dishNameLabel.setVerticalAlignment(JLabel.CENTER);
 		
-		Font nameFont=new Font("Segoe Print", Font.BOLD,20);
+		Font nameFont=new Font("Segoe Print", Font.BOLD,16);
 		this.dishNameLabel.setFont(nameFont);
 		
 		Image img=this.dishIcon.getImage();
