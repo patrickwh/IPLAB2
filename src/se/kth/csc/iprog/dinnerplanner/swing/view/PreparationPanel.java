@@ -146,7 +146,6 @@ public class PreparationPanel extends JPanel{
         Dish temp3 = new Dish("Orange",3,"$$$","Tokyo, Japan’s bustling capital, mixes the ultramodern and the traditional, from neon-lit skyscrapers and anime shops to cherry trees and temples. The opulent Meiji Shinto Shrine is known for its towering gate and surrounding forests. The Imperial Palace sits amid sprawling public gardens. The city is famed for its vibrant food scene, and its Shibuya and Harajuku districts are the heart of its trendy teen fashion scene.");
 
         PreparationPanel newPrepPane = new PreparationPanel(temp1,temp2,temp3);
-        //PreparationPanel pp = new PreparationPanel();
         newPrepPane.creatAndShowGUI();
     }
 }
