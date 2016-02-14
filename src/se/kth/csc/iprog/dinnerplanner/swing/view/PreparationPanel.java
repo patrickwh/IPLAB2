@@ -183,6 +183,7 @@ public class PreparationPanel extends JPanel implements Observer
     	starterContent.setText(dishStarter.getDescription());
         mainContent.setText(dishMain.getDescription());
     	desertContent.setText(dishDesert.getDescription());
+        //System.out.println(starterContent);
     }
 
 	@SuppressWarnings("unchecked")

@@ -133,6 +133,7 @@ public class IngredientPanel extends JPanel implements Observer {
     Dish tempMain;
     Dish temphDesert;
     String temp1;
+    Ingredient tempS;
 
 
 
@@ -163,6 +164,7 @@ public class IngredientPanel extends JPanel implements Observer {
 
         Object headers[] = {"Ingredients", "Quantity", "Cost"};
         JTable table = new JTable(rows, headers);
+
         table.setModel(new DefaultTableModel(rows, headers));
 
 
@@ -189,6 +191,7 @@ public class IngredientPanel extends JPanel implements Observer {
         frame.pack();
         frame.setVisible(true);
     }
+
 
 
     // set the background color
@@ -220,6 +223,8 @@ public class IngredientPanel extends JPanel implements Observer {
         }
     }
 
+
+
     public void setDishes(ArrayList<Dish> list)
     {
         int num=list.size();
@@ -238,6 +243,8 @@ public class IngredientPanel extends JPanel implements Observer {
                 this.temphDesert=list.get(i);
             }
         }
+        tempS = tempStarter.getIngredients().iterator().next();
+        System.out.println(tempS);
     }
 
     @SuppressWarnings("unchecked")
