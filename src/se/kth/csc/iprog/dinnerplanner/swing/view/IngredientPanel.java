@@ -108,6 +108,7 @@
 //
 package se.kth.csc.iprog.dinnerplanner.swing.view;
 
+import se.kth.csc.iprog.dinnerplanner.model.ChangeMessage;
 import se.kth.csc.iprog.dinnerplanner.model.Dish;
 import se.kth.csc.iprog.dinnerplanner.model.Ingredient;
 
@@ -117,13 +118,21 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Observable;
+import java.util.Observer;
 
-public class IngredientPanel extends JPanel {
+public class IngredientPanel extends JPanel implements Observer {
 
     private static final long serialVersionUID = 1L;
 
     Font tableFont = new Font("Gill Sans MT", Font.PLAIN, 16);
     Font tableFontSmall = new Font("Gill Sans MT", Font.PLAIN, 14);
+    Dish tempStarter;
+    Dish tempMain;
+    Dish temphDesert;
+    String temp1;
 
 
 
@@ -133,6 +142,8 @@ public class IngredientPanel extends JPanel {
         newContentPane.creatAndShowGUI();
     }
 
+
+
     public void creatAndShowGUI() {
         JFrame frame = new JFrame("Dinner Planner - Ingredients");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -140,17 +151,22 @@ public class IngredientPanel extends JPanel {
         //IngredientPanel newContentPane = new IngredientPanel();
         this.setOpaque(true); //content panes must be opaque
         frame.setContentPane(this); //Display the window.
+
         TableCellRenderer renderer = new EvenOddRenderer();
+
 
         Object rows[][] = {{"Egg", "11" + " ", new Integer(5) + "$"},
                 {"Duck", "300" + "g", new Integer(8) + "$"},
                 {"Pork", "180" + "g", new Integer(2) + "$"},
         };
+
+
         Object headers[] = {"Ingredients", "Quantity", "Cost"};
         JTable table = new JTable(rows, headers);
-        table.setModel(new DefaultTableModel(rows,headers));
+        table.setModel(new DefaultTableModel(rows, headers));
 
-        DefaultTableModel tableModel = new DefaultTableModel(rows,headers){
+
+        DefaultTableModel tableModel = new DefaultTableModel(rows, headers) {
             public boolean isCellEditable(int row, int column) {
                 //all cells false
                 return false;
@@ -164,12 +180,6 @@ public class IngredientPanel extends JPanel {
         table.setAutoCreateRowSorter(true);
 
 
-//        table.setModel(new DefaultTableModel(){
-//            public boolean isCellEdiable(int row,int coloum){
-//                return false;
-//            }
-//        });
-
 
 
         JScrollPane scrollPane = new JScrollPane(table);
@@ -179,8 +189,6 @@ public class IngredientPanel extends JPanel {
         frame.pack();
         frame.setVisible(true);
     }
-
-
 
 
     // set the background color
@@ -209,6 +217,36 @@ public class IngredientPanel extends JPanel {
             renderer.setForeground(foreground);
             renderer.setBackground(background);
             return renderer;
+        }
+    }
+
+    public void setDishes(ArrayList<Dish> list)
+    {
+        int num=list.size();
+        for(int i=0;i<num;i++)
+        {
+            if(list.get(i).getType()==Dish.STARTER)
+            {
+                this.tempStarter=list.get(i);
+            }
+            else if(list.get(i).getType()==Dish.MAIN)
+            {
+                this.tempMain=list.get(i);
+            }
+            else
+            {
+                this.temphDesert=list.get(i);
+            }
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public void update(Observable obs, Object obj) {
+        ChangeMessage cm=(ChangeMessage) obj;
+        if(cm.getType()==ChangeMessage.MenuCahngedForPreparation)
+        {
+            this.setDishes((ArrayList<Dish>)cm.getData());
         }
     }
 }
