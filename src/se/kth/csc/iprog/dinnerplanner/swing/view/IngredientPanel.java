@@ -159,6 +159,7 @@ public class IngredientPanel extends JPanel implements Observer {
         Object rows[][] = {{"Egg", "11" + " ", new Integer(5) + "$"},
                 {"Duck", "300" + "g", new Integer(8) + "$"},
                 {"Pork", "180" + "g", new Integer(2) + "$"},
+                {tempS.getName(),tempS.getQuantity()+tempS.getUnit(),tempS.getPrice()},
         };
 
 
@@ -244,7 +245,7 @@ public class IngredientPanel extends JPanel implements Observer {
             }
         }
         tempS = tempStarter.getIngredients().iterator().next();
-        System.out.println(tempS);
+        //System.out.println(tempS);
     }
 
     @SuppressWarnings("unchecked")
