@@ -1,8 +1,6 @@
 package se.kth.csc.iprog.dinnerplanner.swing.view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
@@ -17,7 +15,6 @@ import java.util.Observer;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -25,8 +22,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
-import javax.swing.UIManager;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
@@ -58,25 +53,6 @@ public class DishNameDisplayWindow extends JFrame implements Observer
 	IngredientTableCellRender render=new IngredientTableCellRender();
 	JTableHeader theader;
 	
-	private class TableHeaderRender extends DefaultTableCellRenderer
-	{
-		private static final long serialVersionUID = 1L;
-		JComponent cell;
-		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-		          boolean hasFocus, int row, int column)
-		{
-			cell = (JComponent)super.getTableCellRendererComponent 
-			        ( table, value,isSelected, hasFocus, row, column);
-			cell.setBackground(Color.LIGHT_GRAY);
-			if(column==0) cell.setPreferredSize(new Dimension(Constants.dishNameTableColumnWidth1,
-					Constants.dishNameTableRowHeight));
-			else cell.setPreferredSize(new Dimension(Constants.dishNameTableColumnWidth2,
-					Constants.dishNameTableRowHeight));
-			setBorder(UIManager.getBorder("TableHeader.cellBorder"));
-			return cell;	
-		}
-	}
-	
 	public DishNameDisplayWindow(Dish d,int num,DinnerModel m)
 	{
 		m.addObserver(this);
@@ -88,7 +64,8 @@ public class DishNameDisplayWindow extends JFrame implements Observer
 		// create some different fonts
 		Font nameFont=new Font("Informal Roman",Font.BOLD,38);
 		Font costFont=new Font("Segoe Print",Font.BOLD,20);
-		Font tableFont=new  Font("Gill Sans MT",Font.PLAIN,20);
+		Font tableFont=new  Font("Gill Sans MT",Font.PLAIN,18);
+		Font headerFont=new  Font("Segoe Print",Font.BOLD,20);
 		
 		// set window location and size
 		this.setBounds((Constants.widthDf-Constants.dishNameDisplayWindowWidth)/2,
@@ -169,9 +146,13 @@ public class DishNameDisplayWindow extends JFrame implements Observer
 	    };
 		DefaultTableModel dtm=(DefaultTableModel)this.table.getModel();
 		dtm.setColumnIdentifiers(header);
-		TableHeaderRender hrender=new TableHeaderRender();
+		int height=Constants.dishNameTableRowHeight;
+		int [] width={Constants.dishNameTableColumnWidth1,Constants.dishNameTableColumnWidth2,
+				Constants.dishNameTableColumnWidth2};
+		TableHeaderRender hrender=new TableHeaderRender(width,height);
 		this.theader=this.table.getTableHeader();
 		this.theader.setDefaultRenderer(hrender);
+		this.theader.setFont(headerFont);
 		this.theader.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mouseClicked(MouseEvent e)
@@ -225,7 +206,6 @@ public class DishNameDisplayWindow extends JFrame implements Observer
 			else if(this.sortType==1) return Double.compare(ing1.getQuantity(), ing2.getQuantity());
 			else return Double.compare(ing1.getPrice(), ing2.getPrice());
 		}
-		
 	}
 	public void sortTbaleByKey(int key)
 	{

@@ -144,9 +144,11 @@ public class DinnerPlannerController implements ActionListener, ChangeListener
 			createIngredientWindow();
 		
 	}
+	
 	private void createIngredientWindow() {
 		IngredientPanel ip=new IngredientPanel();
-		ip.creatAndShowGUI();
+		model.addObserver(ip);
+		ip.creatAndShowGUI(model.getAllIngredients());
 	}
 
 

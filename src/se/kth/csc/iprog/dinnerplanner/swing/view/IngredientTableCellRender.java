@@ -14,8 +14,23 @@ public class IngredientTableCellRender extends DefaultTableCellRenderer{
 	{
 		Component cell = super.getTableCellRendererComponent 
 	               ( table, value,isSelected, hasFocus, row, column);
-		if (row % 2 == 0) cell.setBackground(Color.gray);
-	    else cell.setBackground(Color.LIGHT_GRAY);
+		Color background=null,foregroud=null;
+		if(isSelected)
+		{
+			background = Color.BLACK;
+            foregroud=Color.WHITE;
+		}else
+		{
+			if (row % 2 == 0) {
+	            background = Color.GRAY;
+	            foregroud=Color.LIGHT_GRAY;
+	        } else {
+	            background = Color.LIGHT_GRAY;
+	            foregroud=Color.GRAY;
+	        }
+		}
+		cell.setBackground(background);
+        cell.setForeground(foregroud);
 	    return cell;	
 	}
 }

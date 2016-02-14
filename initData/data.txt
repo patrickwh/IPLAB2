@@ -1,6 +1,6 @@
 French Toast#1#toast.jpg
 In a large mixing bowl, beat the eggs. Add the milk, brown sugar and nutmeg; stir well to combine. Soak bread slices in the egg mixture until saturated. Heat a lightly oiled griddle or frying pan over medium high heat. Brown slices on both sides, sprinkle with cinnamon and serve hot.
-eggs#2#(*)#1
+egg#2#(*)#1
 milk#30#ml#6
 brown sugar#7#g#1
 ground nutmeg#0.5#g#12
@@ -22,16 +22,16 @@ seasoned bread crumbs#115#g#4
 #*#
 Coconut Soup#1#Coconutsoup.jpg
 Vegetables, Gorgeous Winter Soups, Halloween/Bonfire Night, Dairy-free
-potatoes#2#(*)#0.5
-onions#1#(*)#0.5
+potato#2#(*)#0.5
+onion#1#(*)#0.5
 milk#60#ml#6
-lentils#125#g#2
+lentil#125#g#2
 #*#
 Spring Pie#1#Springpie.jpg
 Kids will love making this pie with you as it's a very messy, throw-it-all-in dish.
 spinach#200#g#3
 milk#200#ml#8
-eggs#6#(*)#3
+egg#6#(*)#3
 lemon#1#(*)#1
 bacon#6#(*)#3
 #*#
@@ -39,7 +39,7 @@ Gobi 65#1#gobi65.jpg
 this is a dry version of gobi 65 and does not include sauces like soy sauce or tomato sauce. the recipe is a homely version and not a restaurant style version.
 juice#30#ml#0.5
 cauliflower#350#g#1
-eggs#6#(*)#3
+egg#6#(*)#3
 #*#
 Grilled Scallops#1#Grilledscallops.jpg
 To make the dressing, chop the coriander and mint leaves, then blitz with the anchovies for 1 minute. Add the oil and squeeze in 25ml of the lime juice and blitz for another minute.
@@ -52,7 +52,7 @@ Epic Egg Salad#1#Epiceggsalad.jpg
 When they’re properly done, egg salads are out of this world. I’ve made a salad cream to ensure this old-school dish is top notch.
 spinach#200#g#3
 cress#20#g#8
-eggs#4#(*)#2
+egg#4#(*)#2
 lemon#0.5#(*)#0.5
 chilli#1#(*)#1
 #*#
@@ -66,28 +66,28 @@ spring onion,diced#1#(*)#1.5
 Thai chilli,diced#1#(*)#1.0
 coriander leaves,ripped#16#(*)#15
 grated lime#1#(*)#3.5
-eggs#3#(*)#4.5
+egg#3#(*)#4.5
 #*#
 Pork Fried Noodles#2#Porkfriednoodles.jpg
 Shred or roughly chop the pork. Peel and finely chop the garlic and ginger. Trim and finely slice the whites and greens of the spring onions.
-frozen peas#50#g#1
+frozen pea#50#g#1
 roast pork#150#g#10
-onions#0.5#(*)#05
+onion#0.5#(*)#05
 rice vermicelli#300#g#2
 garlic#2#(*)#2
 #*#
 Flash Steak#2#Jamie's flash steak.jpg
 To make the salsa, quarter the cherry and baby plum tomatoes. Deseed the larger plum tomatoes, then cut into strips. Pick and slice the basil leaves, then peel and finely slice the garlic.
 lemon#1#(*)#1
-tomatoes#150#g#6
-steaks#4#(*)#40
-sage leaves#16#(*)#3
+tomato#150#g#6
+steak#4#(*)#40
+sage leave#16#(*)#3
 prosciutto#12#(*)#9
 #*#
 Chicken & Chips#2#chicken & chips.jpg
 Position a tray on the shelf below to catch the juices (you’ll need these for the chips), and roast the chicken for 1 hour 30 minutes, or until cooked through, turning the chicken over after 45 minutes to crisp up the rest of the skin.
 chicken#3500#g#30
-potatoes#2000#g#8
+potato#2000#g#8
 yoghurt#5#g#0.5
 garlic#2#(*)#1
 #*#
@@ -97,14 +97,14 @@ lamb#850#g#20
 butter#25#g#1
 yoghurt#250#ml#2
 garlic#2#(*)#1
-onions#2#(*)#2
+onion#2#(*)#2
 #*#
 Duck Ceviche#2#Duck ceviche.jpg
 You need aji amarillo paste for this dish – made from a fruity-flavoured orange chilli that’s used throughout Peru, the home of ceviches.
 duck breast#250#g#17
 duck leg#350#g#20
 garlic#2#(*)#1
-onions#2#(*)#2
+onion#2#(*)#2
 lemon#1#(*)#1
 orange juice#250#ml#2
 #*#
@@ -112,7 +112,7 @@ Whoopie Pies#3#whoopie pies.jpg
 Everyone's mad for whoopie pies in the States, and they're catching on here too. They're sort of the perfect little sweet sandwich. I've gone for a classic combo here but you can be as inventive as you like.
 flour#350#g#3
 sugar#175#g#1
-bananas#3#(*)#2
+banana#3#(*)#2
 egg#1#(*)#1
 milk#200#ml#1
 #*#
@@ -120,7 +120,7 @@ Cherry Clafoutis#3#Cherry clafoutis.jpg
 Dot the cherries (stoned, if you prefer) around the base of the dish, then place in the oven for 5 minutes so the fruit can begin to soften.
 flour#60#g#1
 sugar#60#g#0.5
-cherries#300#g#5
+cherry#300#g#5
 egg#3#(*)#3
 milk#300#ml#1
 #*#
@@ -135,7 +135,7 @@ butter#130#g#2
 #*#
 Summer Pudding#3#Summer pudding.jpg
 Place all the berries in a large, heavy-based saucepan with the sugar, orange juice and vanilla paste (if using). Cook over a low heat for 3 to 5 minutes, or until the sugar dissolves and juices start bleeding from the fruit. Set aside to cool.
-berries#800#g#15
+berry#800#g#15
 sugar#150#g#1.5
 orange#1#(*)#1
 bread#7#(*)#3
@@ -161,12 +161,12 @@ Portuguese Chicken#2#PORTUGUESE_CHICKEN.jpg
 Place the lemon juice, oil, chilli and garlic in a medium glass or ceramic bowl. Season with salt, and whisk to combine, add the chicken and turn to coat, cover with clingfilm and marinate in the fridge for 30 minutes.Combine the mayonnaise and garlic in a small bowl. Season to taste with salt, and pepper.Heat the oven to 200°C (gas mark 6). Drain the chicken from the marinade and dry with kitchen paper. Heat a large griddle pan and sear each of the chicken pieces for about 2 minutes on each side. Transfer the pan to the oven (with the chicken skin side up) and roast for about 20 minutes, or until cooked.Meanwhile, make the piri-piri dressing by putting the vinegar, chillies, sherry and oil in a screw top jar, shake well, and serve with the chicken.
 Lemo,juice#2#(*)#1.5
 olive oil#3#tbsp#2
-dried hot chilli flakes#2#tsp#1
+dried hot chilli flake#2#tsp#1
 cloves garlic,crushed#2#(*)#2
-chicken thighs#8#(*)#30
+chicken thigh#8#(*)#30
 mayonnaise#150#ml#1.5
 red wine vinegar#2#tbsp#1.5
-hot red chillies#25#g#2.5
+hot red chilli#25#g#2.5
 dry sherry#2#tbsp#2
 #*#
 Pumpkin & Ginger Cupcakes#3#pumpkin-cupcakes.jpg
@@ -180,8 +180,8 @@ plain white flour#200#g#1
 baking powder#2#tsp#1
 all spice#1.5#tsp#0.5
 ground ginger#1.5#tsp#1
-ground cloves#1.25#tsp#1
-glace cheries#1.25#tsp#3
+ground clov#1.25#tsp#1
+glace chery#1.25#tsp#3
 ground nutmeg#1.25#tsp#1.5
 vanilla extract#1#tsp#1
 #*#

@@ -60,7 +60,7 @@ public class Constants {
 	public static int dishNameDescriptionWidth=dishNameDividerLocation;
 	public static int dishNameTableWidth=dishNameDisplayWindowWidth-dishNameDescriptionWidth;
 	public static int dishNameNamePanelBorderWidth=20;
-	public static int dishNameTableColumnWidth2=(dishNameDividerLocation/7)*2;
+	public static int dishNameTableColumnWidth2=(dishNameDividerLocation/8)*3;
 	public static int dishNameTableColumnWidth1=dishNameTableWidth-2*dishNameTableColumnWidth2;
 	public static int dishNameTableRowHeight=40;
 	public static int preparationPanelWidth=700;
@@ -73,4 +73,8 @@ public class Constants {
 			preparationPanelDescriptionHeight;
 	public static int preparationPanelCenterHeight=preparationPanelNameHeight+preparationPanelDescriptionHeight;
 	public static int preparetionPanelBottomHeight=preparationPanelCenterHeight;
+	public static int ingredientPanelWidth=600;
+	public static int ingredientPanelHeight=600;
+	public static int ingredientPanelTableWidth1=(ingredientPanelWidth*3)/6;
+	public static int ingredientPanelTableWidth2=(ingredientPanelWidth-ingredientPanelTableWidth1)/2;
 }

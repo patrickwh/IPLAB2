@@ -139,6 +139,16 @@ public class DinnerModel extends Observable implements IDinnerModel {
 		return this.menu;
 	}
 
+	private int containsTheIngredient(ArrayList <Ingredient> list,Ingredient ing)
+	{
+		int num=list.size();
+		for(int i=0;i<num;i++)
+		{
+			if(ing.getName().equals(list.get(i).getName()))
+				return i;
+		}
+		return -1;
+	}
 	private void unionAllIngrediants()
 	{
 		this.allIngredients=new ArrayList <Ingredient>();
@@ -151,14 +161,18 @@ public class DinnerModel extends Observable implements IDinnerModel {
 			while(iitr.hasNext())
 			{
 				Ingredient tmp=iitr.next();
-				if(allIngredients.contains(tmp))
+				int index=this.containsTheIngredient(allIngredients, tmp);
+				if(index!=-1)
 				{
-					Ingredient t=allIngredients.get(allIngredients.indexOf(tmp));
+					Ingredient t=allIngredients.get(index);
 					t.setQuantity(t.getQuantity()+tmp.getQuantity());
+					t.setPrice(t.getPrice()+tmp.getPrice());
 				}
 				else
 				{
-					allIngredients.add(tmp);
+					Ingredient ing=new Ingredient(tmp.getName(),tmp.getQuantity(),
+							tmp.getUnit(),tmp.getPrice());
+					allIngredients.add(ing);
 				}
 			}
 		}
@@ -180,6 +194,25 @@ public class DinnerModel extends Observable implements IDinnerModel {
 		return totalPrice;
 	}
 
+	private void notifyAllObserversForMenuChange()
+	{
+		try {
+			this.setChanged();
+			this.notifyObservers(new ChangeMessage
+					(ChangeMessage.ToatalMenuCostCahnged,this.getTotalMenuPrice()));
+			this.setChanged();
+			this.notifyObservers(new ChangeMessage(ChangeMessage.MenuChanged,this.getMunuList()));
+			this.setChanged();
+			this.notifyObservers(new ChangeMessage(ChangeMessage.MenuCahngedForPreparation,
+					this.getMunuListForPreparation()));
+			this.setChanged();
+			this.notifyObservers(new ChangeMessage(ChangeMessage.ingredientsCahnged,
+					this.getAllIngredients()));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	@Override
 	public void addDishToMenu(Dish dish) {
 		Iterator <Dish> ditr=this.menu.iterator();
@@ -190,36 +223,12 @@ public class DinnerModel extends Observable implements IDinnerModel {
 			{
 				this.menu.remove(d);
 				this.menu.add(dish);	
-				try {
-					this.setChanged();
-					this.notifyObservers(new ChangeMessage
-							(ChangeMessage.ToatalMenuCostCahnged,this.getTotalMenuPrice()));
-					this.setChanged();
-					this.notifyObservers(new ChangeMessage(ChangeMessage.MenuChanged,this.getMunuList()));
-					this.setChanged();
-					this.notifyObservers(new ChangeMessage(ChangeMessage.MenuCahngedForPreparation,
-							this.getMunuListForPreparation()));
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				this.notifyAllObserversForMenuChange();
 				return;
 			}
 		}
 		this.menu.add(dish);
-		try 
-		{
-			this.setChanged();
-			this.notifyObservers(new ChangeMessage
-					(ChangeMessage.ToatalMenuCostCahnged,this.getTotalMenuPrice()));
-			this.setChanged();
-			this.notifyObservers(new ChangeMessage(ChangeMessage.MenuChanged,this.getMunuList()));
-			this.setChanged();
-			this.notifyObservers(new ChangeMessage(ChangeMessage.MenuCahngedForPreparation,
-					this.getMunuListForPreparation()));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		this.notifyAllObserversForMenuChange();
 	}
 
 	private ArrayList<Dish> getMunuList()
@@ -254,19 +263,7 @@ public class DinnerModel extends Observable implements IDinnerModel {
 		if(this.menu.contains(dish))
 		{
 			this.menu.remove(dish);
-			try 
-			{
-				this.setChanged();
-				this.notifyObservers(new ChangeMessage
-						(ChangeMessage.ToatalMenuCostCahnged,this.getTotalMenuPrice()));
-				this.setChanged();
-				this.notifyObservers(new ChangeMessage(ChangeMessage.MenuChanged,this.getMunuList()));
-				this.setChanged();
-				this.notifyObservers(new ChangeMessage(ChangeMessage.MenuCahngedForPreparation,
-						this.getMunuListForPreparation()));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			this.notifyAllObserversForMenuChange();
 		}
 	}
 	@Override
