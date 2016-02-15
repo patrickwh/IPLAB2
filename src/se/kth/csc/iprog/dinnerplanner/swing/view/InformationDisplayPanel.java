@@ -44,17 +44,6 @@ public class InformationDisplayPanel extends JPanel implements Observer{
 	//ArrayList <Dish> menu=new ArrayList <Dish>();
 	DinnerModel model;
 	
-//	private void transferSetToList()
-//	{
-//		int num=menu.size();
-//		for(int i=0;i<num;i++) menu.remove(0);
-//		Iterator <Dish> itr=this.model.getFullMenu().iterator();
-//		while(itr.hasNext())
-//		{
-//			menu.add(itr.next());
-//		}
-//	}
-	
 	public InformationDisplayPanel(DinnerModel m)
 	{
 		this.model=m;

@@ -101,6 +101,7 @@ public class DinnerPlannerController implements ActionListener, ChangeListener
 		PreparationPanel pp=new PreparationPanel(starter,main,desert);
 		model.addObserver(pp);
 		pp.creatAndShowGUI();
+		//new DishDropTargetListener(pp,model);
 	}
 	
 	public DinnerPlannerController(DinnerModel argm,MainView argv)

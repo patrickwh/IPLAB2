@@ -185,6 +185,17 @@ glace chery#1.25#tsp#3
 ground nutmeg#1.25#tsp#1.5
 vanilla extract#1#tsp#1
 #*#
+Vegetable Spring Rolls#1#spring-rolls.jpg
+Place the noodles in a heat-proof bowl and cover with boiling water. Set aside for 5-7 mins, or until the noodles are soft, then drain well. Combine the carrots, cucumber, red peppers and spring onions. Stir through the drained noodles. Prepare a bowl of hot water. Dip a rice-paper disc into the hot water for about 10 secs, or until soft. Lay it on a tea towel and place some of the noodle mixture onto the centre, topped with a few mint and coriander leaves. Fold in two sides of the disc, and then roll up to make a cylinder. Transfer to a platter and repeat with the remaining ingredients. Make the dipping sauce by combining all the ingredients and whisking until the sugar has dissolved. Serve the spring rolls accompanied by the sauce.
+dried rice vermicelli#50#g#1
+carrot,matchsticks#2#(*)#1
+small cucumbe#1#(*)#5
+red pepper#2#(*)#0.5
+spring onion#3#(*)#3.5
+circular rice-paper disc#12#(*)#5
+mint leaf#0.5#handful#0.5
+coriander leaf#0.5#handful#1.5
+#*#
 #END#
 
 

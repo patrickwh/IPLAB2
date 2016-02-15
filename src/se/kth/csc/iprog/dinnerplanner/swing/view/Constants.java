@@ -25,6 +25,7 @@ public class Constants {
 	public static String notSelctName="NOT select";
 	public static String notSelctDescription="You have NOT selet a dish in specified type";
 	public static String notSelctPic="noResult.jpg";
+	public static String windowIconDir="./images/icon.png";
 	public static int dishTypeNum=3;
 	public static int verticalScrollbarUnit=20;
 	public static int informationPanelWidth=width-dividerLocation;

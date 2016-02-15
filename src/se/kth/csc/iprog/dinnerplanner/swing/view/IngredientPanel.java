@@ -3,6 +3,7 @@ package se.kth.csc.iprog.dinnerplanner.swing.view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -42,8 +43,10 @@ public class IngredientPanel extends JPanel implements Observer {
         JFrame frame = new JFrame("Dinner Planner - Ingredients");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setBounds((Constants.widthDf-Constants.ingredientPanelWidth)/2, 
-        		(Constants.heightDf-Constants.ingredientPanelHeight)/2,
+        		(Constants.heightDf-Constants.ingredientPanelHeight)/2,        		
         		Constants.ingredientPanelWidth, Constants.ingredientPanelHeight);
+        Image img = this.getToolkit().getImage(Constants.windowIconDir);
+        frame.setIconImage(img);
         this.setPreferredSize(new Dimension(Constants.ingredientPanelWidth,
         		Constants.ingredientPanelHeight));
         this.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
@@ -143,7 +146,7 @@ public class IngredientPanel extends JPanel implements Observer {
     		Ingredient tmp=list.get(i);
     		data[0]=tmp.getName();
     		data[1]=tmp.getQuantity()+" "+tmp.getUnit();
-    		data[2]=""+tmp.getPrice();
+    		data[2]="$ "+tmp.getPrice();
     		dtm.addRow(data);
     	}
     	this.validate();

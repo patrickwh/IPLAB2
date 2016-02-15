@@ -3,6 +3,7 @@ package se.kth.csc.iprog.dinnerplanner.swing.view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -73,6 +74,8 @@ public class PreparationPanel extends JPanel implements Observer
         starterContent.setEditable(false);
         starterContent.setOpaque(false);
         starterContent.setFont(descriptionFont);
+        starterContent.setSelectionStart(0);
+    	starterContent.setSelectionEnd(0);
         starterScroll=new JScrollPane(starterContent,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
         		JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         starterScroll.setPreferredSize(new Dimension(Constants.preparationPanelWidth,
@@ -100,6 +103,8 @@ public class PreparationPanel extends JPanel implements Observer
         mainContent.setEditable(false);
         mainContent.setOpaque(false);
         mainContent.setFont(descriptionFont);
+        mainContent.setSelectionStart(0);
+    	mainContent.setSelectionEnd(0);
         mainScroll=new JScrollPane(mainContent,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
         		JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         mainScroll.setPreferredSize(new Dimension(Constants.preparationPanelWidth,
@@ -125,6 +130,8 @@ public class PreparationPanel extends JPanel implements Observer
         desertContent.setEditable(false);
         desertContent.setOpaque(false);
         desertContent.setFont(descriptionFont);
+        desertContent.setSelectionStart(0);
+    	desertContent.setSelectionEnd(0);
         desertScroll=new JScrollPane(desertContent,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
         		JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         desertScroll.setPreferredSize(new Dimension(Constants.preparationPanelWidth,
@@ -149,7 +156,7 @@ public class PreparationPanel extends JPanel implements Observer
 
     public void  creatAndShowGUI(){
         //creat and setup the window
-        JFrame frame = new JFrame("Dinner planner-Preparation");
+        JFrame frame = new JFrame("Dinner Planner-Preparation");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setContentPane(this);
         frame.setBounds((Constants.widthDf-Constants.preparationPanelWidth)/2,
@@ -157,6 +164,8 @@ public class PreparationPanel extends JPanel implements Observer
                 Constants.preparationPanelHeight);
         frame.pack();
         frame.setVisible(true);
+        Image img = this.getToolkit().getImage(Constants.windowIconDir);
+        frame.setIconImage(img);
     }
 
     public void setDishes(ArrayList<Dish> list)
@@ -181,8 +190,14 @@ public class PreparationPanel extends JPanel implements Observer
     	main.setText("Main: "+dishMain.getName());
     	desert.setText("Desert: "+dishDesert.getName());
     	starterContent.setText(dishStarter.getDescription());
+    	starterContent.setSelectionStart(0);
+    	starterContent.setSelectionEnd(0);
         mainContent.setText(dishMain.getDescription());
+        mainContent.setSelectionStart(0);
+    	mainContent.setSelectionEnd(0);
     	desertContent.setText(dishDesert.getDescription());
+    	desertContent.setSelectionStart(0);
+    	desertContent.setSelectionEnd(0);
         //System.out.println(starterContent);
     }
 

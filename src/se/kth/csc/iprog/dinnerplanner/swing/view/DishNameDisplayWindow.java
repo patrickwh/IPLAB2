@@ -56,10 +56,13 @@ public class DishNameDisplayWindow extends JFrame implements Observer
 	public DishNameDisplayWindow(Dish d,int num,DinnerModel m)
 	{
 		m.addObserver(this);
+		Image imgic = this.getToolkit().getImage(Constants.windowIconDir);
+        this.setIconImage(imgic);
 		this.dish=d;
 		this.guestNum=num;
 		// release the resources when closing the window
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setTitle("Dinner Planner-Dish Name");
 		
 		// create some different fonts
 		Font nameFont=new Font("Informal Roman",Font.BOLD,38);

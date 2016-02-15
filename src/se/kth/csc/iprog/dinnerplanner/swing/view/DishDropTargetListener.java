@@ -1,5 +1,6 @@
 package se.kth.csc.iprog.dinnerplanner.swing.view;
 
+import java.awt.Component;
 import java.awt.datatransfer.Transferable;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
@@ -14,11 +15,11 @@ import se.kth.csc.iprog.dinnerplanner.model.Dish;
 public class DishDropTargetListener implements DropTargetListener
 {
 	
-	InformationDisplayPanel listPanel;
+	Component listPanel;
 	DropTarget dropTarget;
 	DinnerModel model;
 	
-	public DishDropTargetListener(InformationDisplayPanel panel,DinnerModel argModel)
+	public DishDropTargetListener(Component panel,DinnerModel argModel)
 	{
 		this.listPanel=panel;
 		this.model=argModel;
