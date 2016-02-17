@@ -1,4 +1,4 @@
-package se.kth.csc.iprog.dinnerplanner.swing;
+package se.kth.csc.iprog.dinnerplanner.model.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -143,7 +143,6 @@ public class DinnerPlannerController implements ActionListener, ChangeListener
 			createPreparationWindow();
 		else if(ae.getSource()==view.informationPanel.ingredientsButton) 
 			createIngredientWindow();
-		
 	}
 	
 	private void createIngredientWindow() {
@@ -151,7 +150,6 @@ public class DinnerPlannerController implements ActionListener, ChangeListener
 		model.addObserver(ip);
 		ip.creatAndShowGUI(model.getAllIngredients());
 	}
-
 
 	@Override
 	public void stateChanged(ChangeEvent ae) {

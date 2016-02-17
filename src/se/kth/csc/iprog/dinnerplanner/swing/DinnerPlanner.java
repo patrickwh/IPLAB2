@@ -5,6 +5,7 @@ import java.awt.Image;
 import javax.swing.JFrame;
 
 import se.kth.csc.iprog.dinnerplanner.model.*;
+import se.kth.csc.iprog.dinnerplanner.model.controller.DinnerPlannerController;
 import se.kth.csc.iprog.dinnerplanner.swing.view.*;
 
 
@@ -45,7 +46,7 @@ public class DinnerPlanner extends JFrame {
 		//Create drag and drop controller
 		new DishDropTargetListener(mainView.informationPanel,model);
 		//Adding the view to the main JFrame
-		dinnerPlanner.getContentPane().add(mainView);
+		dinnerPlanner.setContentPane(mainView);
 		
 		//Resize it so content fits
 		dinnerPlanner.pack();

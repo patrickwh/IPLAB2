@@ -90,6 +90,7 @@ public class IngredientPanel extends JPanel implements Observer {
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setPreferredSize(new Dimension(Constants.ingredientPanelWidth,
         		Constants.ingredientPanelHeight));
+        frame.getContentPane().setLayout(new BorderLayout());
         frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
         frame.setFont(tableFont);
         frame.pack();

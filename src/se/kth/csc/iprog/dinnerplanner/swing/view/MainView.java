@@ -1,5 +1,6 @@
 package se.kth.csc.iprog.dinnerplanner.swing.view;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -67,7 +68,8 @@ public class MainView extends JPanel {
 		this.tab.add("Desert", this.desertPanel);
 			
 		this.setPreferredSize(new Dimension(Constants.width, Constants.height));
-		this.add(this.split);
+		this.setLayout(new BorderLayout());
+		this.add(this.split,BorderLayout.CENTER);
 		//new DishDropTargetListener(this.informationPanel);		
 	}
 	
