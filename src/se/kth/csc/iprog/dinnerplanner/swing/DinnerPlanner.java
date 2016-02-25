@@ -4,8 +4,8 @@ import java.awt.Image;
 
 import javax.swing.JFrame;
 
+import se.kth.csc.iprog.dinnerplanner.controller.DinnerPlannerController;
 import se.kth.csc.iprog.dinnerplanner.model.*;
-import se.kth.csc.iprog.dinnerplanner.model.controller.DinnerPlannerController;
 import se.kth.csc.iprog.dinnerplanner.swing.view.*;
 
 

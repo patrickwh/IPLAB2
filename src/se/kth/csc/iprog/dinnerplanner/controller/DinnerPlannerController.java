@@ -1,4 +1,4 @@
-package se.kth.csc.iprog.dinnerplanner.model.controller;
+package se.kth.csc.iprog.dinnerplanner.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
