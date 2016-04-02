@@ -19,6 +19,7 @@ public class MainView extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 	
+	DinnerModel model;
 	// The components of our view
 	JLabel label = new JLabel();
 	JButton plusButton = new JButton();
@@ -28,8 +29,9 @@ public class MainView extends JPanel {
 	public ListAllPanel starterPanel;
 	public ListAllPanel mainPanel;
 	public ListAllPanel desertPanel;
-	DinnerModel model;
 	public InformationDisplayPanel informationPanel;
+	public ProgressBarPanel progress=new ProgressBarPanel();
+	public JPanel leftPanel=new JPanel();
 	
 	private void init()
 	{
@@ -45,9 +47,9 @@ public class MainView extends JPanel {
 			else dlist.add(tmp);
 		}
 		this.informationPanel=new InformationDisplayPanel(model);
-		this.starterPanel=new ListAllPanel(slist);
-		this.mainPanel=new ListAllPanel(mlist);
-		this.desertPanel=new ListAllPanel(dlist);
+		this.starterPanel=new ListAllPanel(slist,Dish.STARTER,model);
+		this.mainPanel=new ListAllPanel(mlist,Dish.MAIN,model);
+		this.desertPanel=new ListAllPanel(dlist,Dish.DESERT,model);
 	}
 	public MainView(DinnerModel m){
 		
@@ -59,8 +61,14 @@ public class MainView extends JPanel {
 		this.split.setDividerLocation(Constants.dividerLocation);
 		this.split.setDividerSize(15);
 		this.split.setPreferredSize(new Dimension(Constants.width, Constants.height));
-		this.split.setLeftComponent(tab);
+		this.split.setLeftComponent(leftPanel);
 		this.split.setRightComponent(informationPanel);
+		
+		this.leftPanel.setPreferredSize(new Dimension(Constants.tabWidth,
+				Constants.height));
+		this.leftPanel.setLayout(new BorderLayout());
+		this.leftPanel.add(tab, BorderLayout.CENTER);
+		this.leftPanel.add(progress, BorderLayout.SOUTH);
 		
 		this.tab.setPreferredSize(new Dimension(Constants.tabWidth,Constants.height));
 		this.tab.add("Starter", this.starterPanel);

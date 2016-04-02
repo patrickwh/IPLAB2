@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import se.kth.csc.iprog.dinnerplanner.model.DinnerModel;
 import se.kth.csc.iprog.dinnerplanner.model.Dish;
 
 public class DishDisplayPanel extends JPanel{
@@ -25,16 +26,21 @@ public class DishDisplayPanel extends JPanel{
 	JLabel dishImageLabel;
 	JLabel dishNameLabel=new JLabel();
 	int ID;
+	DinnerModel model;
+	boolean isSearch;
+	String kw=null;
 	
-	public DishDisplayPanel(Dish d,int id)
+	public DishDisplayPanel(Dish d,int id,DinnerModel m,boolean search,String kw)
 	{
-		
+		this.kw=kw;
+		this.isSearch=search;
 		this.setPreferredSize(new Dimension(Constants.dishDisplayWidth+Constants.interDishDisplayMargin,
 				Constants.dishDisplayHeight+Constants.interDishDisplayMargin));
 		//if(d==null) return;
 		
 		this.ID=id;
 		this.dish=d;
+		this.model=m;
 		this.dishIcon=new ImageIcon(Constants.homeDir+Constants.pictureDir+dish.getImage());
 		this.dishImageLabel=new JLabel();		
 		this.dishNameLabel.setText(dish.getName());
@@ -73,6 +79,17 @@ public class DishDisplayPanel extends JPanel{
 			{
 				DishDisplayPanel.this.setBorder(BorderFactory.createLoweredBevelBorder());
 			}
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				if(DishDisplayPanel.this.dish.getName().equals(Constants.addMoreName)) 
+				{
+					System.out.println("  is serach "+isSearch+" kw "+kw);
+					if(!isSearch) model.loadMoreDish(dish.getType());
+					else model.loadMoreSearchResult(dish.getType(),kw);
+				}
+				model.setLoadingState(true);
+			}
 		});
 		
 		DragSource dragSource=DragSource.getDefaultDragSource();
@@ -84,5 +101,17 @@ public class DishDisplayPanel extends JPanel{
 	{
 		return this.dish;
 	}
-
+	
+	public void loadNewImage(String pic)
+	{
+		this.dish.setImage(pic);
+		this.dishIcon=new ImageIcon(Constants.homeDir+Constants.pictureDir+pic);
+		Image img=this.dishIcon.getImage();
+		Image newImg=img.getScaledInstance
+				(Constants.dishDisplayWidth,Constants.dishDisplayWidth,Image.SCALE_SMOOTH);
+		ImageIcon newIcon=new ImageIcon(newImg);
+		this.dishImageLabel.setIcon(newIcon);
+		this.validate();
+		this.repaint();
+	}
 }

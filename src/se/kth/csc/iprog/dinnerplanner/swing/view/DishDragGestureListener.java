@@ -19,7 +19,7 @@ public class DishDragGestureListener implements DragGestureListener{
 		DishDisplayPanel p=(DishDisplayPanel)e.getComponent();
 		p.setBorder(BorderFactory.createEtchedBorder());
 		Dish dish=p.getDish();
-		if(dish.getName().equals("NO RESULT")) return;
+		if(dish.getName().equals("NO RESULT")||dish.getName().equals(Constants.addMoreName)) return;
 		Cursor cursor=null;
 		if(e.getDragAction()==DnDConstants.ACTION_COPY)
 		{

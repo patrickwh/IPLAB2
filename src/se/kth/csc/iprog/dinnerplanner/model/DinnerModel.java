@@ -7,11 +7,13 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Observable;
+import java.util.Observer;
 import java.util.Set;
 
+import se.kth.csc.iprog.dinnerplanner.model.dynamicData.GetDataThread;
 import se.kth.csc.iprog.dinnerplanner.swing.view.Constants;
 
-public class DinnerModel extends Observable implements IDinnerModel {
+public class DinnerModel extends Observable implements IDinnerModel,Observer {
 	
 
 	Set<Dish> dishes = new HashSet<Dish>();
@@ -21,8 +23,18 @@ public class DinnerModel extends Observable implements IDinnerModel {
 	ArrayList<Dish> starterList=new ArrayList<Dish>();
 	ArrayList<Dish> mainList=new ArrayList<Dish>();
 	ArrayList<Dish> desertList=new ArrayList<Dish>();
+	int totalListLength=-1;
+	int currenLoadedNum=-1;
 	
 	int guestNum=0;
+	int starterCurrentPageNumber=1;
+	int mainCurrentPageNumber=1;
+	int desertCurrentPageNumber=1;
+	
+	int starterSearchCurrentPageNumber=1;
+	int mainSearchCurrentPageNumber=1;
+	int desertSearchCurrentPageNumber=1;
+	boolean loadingState=false;
 	/**
 	 * TODO: For Lab2 you need to implement the IDinnerModel interface.
 	 * When you do this you will have all the needed fields and methods
@@ -75,6 +87,9 @@ public class DinnerModel extends Observable implements IDinnerModel {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		starterList.add(this.getAddMore(Dish.STARTER));
+		mainList.add(this.getAddMore(Dish.MAIN));
+		desertList.add(this.getAddMore(Dish.DESERT));
 	}
 	public DinnerModel(){
 		
@@ -95,14 +110,75 @@ public class DinnerModel extends Observable implements IDinnerModel {
 	 */
 	public Set<Dish> getDishesOfType(int type){
 		Set<Dish> result = new HashSet<Dish>();
-		for(Dish d : dishes){
-			if(d.getType() == type){
-				result.add(d);
-			}
-		}
+//		for(Dish d : dishes){
+//			if(d.getType() == type){
+//				result.add(d);
+//			}
+//		}
 		return result;
 	}
 	
+	public void loadMoreDish(int type)
+	{
+		int pg=0;
+		if(type==Dish.STARTER) 
+		{
+			pg=this.starterCurrentPageNumber;
+			starterCurrentPageNumber++;
+		}
+		else if(type==Dish.MAIN) 
+		{
+			pg=this.mainCurrentPageNumber;
+			mainCurrentPageNumber++;
+		}
+		else
+		{
+			pg=this.desertCurrentPageNumber;
+			desertCurrentPageNumber++;
+		}
+		GetDataThread gdt=new GetDataThread(this,pg,type,GetDataThread.GET_LIST);
+		gdt.run();
+	}
+	
+	public void loadMoreSearchResult(int type,String kw)
+	{
+		int pg=0;
+		if(type==Dish.STARTER) 
+		{
+			pg=this.starterSearchCurrentPageNumber;
+			starterSearchCurrentPageNumber++;
+		}
+		else if(type==Dish.MAIN) 
+		{
+			pg=this.mainSearchCurrentPageNumber;
+			mainSearchCurrentPageNumber++;
+		}
+		else
+		{
+			pg=this.desertSearchCurrentPageNumber;
+			desertSearchCurrentPageNumber++;
+		}
+		type=0-type;
+		System.out.println(" ***** in dinner model "+type);
+		GetDataThread gdt=new GetDataThread(this,kw,pg,type,GetDataThread.GET_SEARCH_LIST);
+		gdt.run();
+	}
+	
+	public void resetSearchPage(int type)
+	{
+		if(type==Dish.STARTER) 
+		{
+			this.starterSearchCurrentPageNumber=1;
+		}
+		else if(type==Dish.MAIN) 
+		{
+			this.mainSearchCurrentPageNumber=1;
+		}
+		else
+		{
+			this.desertSearchCurrentPageNumber=1;
+		}
+	}
 	/**
 	 * Returns the set of dishes of specific type, that contain filter in their name
 	 * or name of any ingredient. 
@@ -241,6 +317,7 @@ public class DinnerModel extends Observable implements IDinnerModel {
 		}
 		return list;
 	}
+	
 	private ArrayList<Dish> getMunuListForPreparation()
 	{
 		ArrayList<Dish> list=this.getMunuList();
@@ -268,7 +345,6 @@ public class DinnerModel extends Observable implements IDinnerModel {
 	}
 	@Override
 	public Dish getSelectedDish(int type) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
@@ -283,8 +359,126 @@ public class DinnerModel extends Observable implements IDinnerModel {
 	{
 		return new Dish("NO RESULT",1,"noResult.jpg","No result has been found");
 	}
+	
 	public Dish getNotSelect(int type)
 	{
 		return new Dish("NOT select",type,"noResult.jpg","You have NOT selet a dish in specified type");
+	}
+	
+	public Dish getAddMore(int type)
+	{
+		return new Dish(Constants.addMoreName,type,Constants.addMoreImageName,"Load More Dishes From Internet");
+	}
+	
+	public void setLoadingState(boolean state)
+	{
+		this.loadingState=state;
+		this.setChanged();
+		try{
+			this.notifyObservers(new ChangeMessage(ChangeMessage.loadingStateChanged,true));
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+	}
+	@Override
+	public void update(Observable obs, Object obr) 
+	{
+		ChangeMessage cm=(ChangeMessage) obr;
+		if(cm.getType()==ChangeMessage.listLoaded)
+		{
+			@SuppressWarnings("unchecked")
+			ArrayList<Integer> list=(ArrayList<Integer>) cm.getData();	
+			int tmpType=list.get(0);
+			list.remove(0);// the first element in the list is the dish type
+			this.totalListLength=list.size();
+			this.currenLoadedNum=0;
+			for(int rid:list)
+			{
+				GetDataThread gdt=new GetDataThread(this,rid,tmpType,GetDataThread.GET_DISH);
+				gdt.run();
+			}
+			// notify the controller
+			this.setChanged();
+			try{
+				this.notifyObservers(new ChangeMessage(ChangeMessage.listLoaded,cm.getData()));
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+		
+		else if(cm.getType()==ChangeMessage.dishLoaded)
+		{
+			synchronized(dishes)
+			{
+				Dish d=(Dish) cm.getData();
+				if(d.getType()<0)
+				{
+					
+				}
+				else
+				{
+					dishes.add(d);
+					// add to corresponding list
+					if(d.getType()==Dish.STARTER) this.starterList.add(starterList.size()-1, d);
+					else if(d.getType()==Dish.MAIN) this.mainList.add(mainList.size()-1,d);
+					else this.desertList.add(desertList.size()-1,d);
+				}
+				///////////////////////////////////////////////////////////
+				this.setChanged();
+				try{
+					this.notifyObservers(new ChangeMessage(ChangeMessage.dishLoaded,d));
+				}catch(Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		else if(cm.getType()==ChangeMessage.imageLoaded)
+		{
+			// let the controller know than a new dish image has loaded
+			this.setChanged();
+			try{
+				this.notifyObservers(new ChangeMessage(ChangeMessage.imageLoaded,cm.getData()));
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			// load a new dish
+			this.currenLoadedNum++;
+			ArrayList <Integer> num=new ArrayList <Integer>();
+			num.add(totalListLength);
+			num.add(currenLoadedNum);
+			this.setChanged();
+			try{
+				this.notifyObservers(new ChangeMessage(ChangeMessage.currentLoadedNumChanged,num));
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			if (currenLoadedNum==totalListLength)
+			{
+				this.setChanged();
+				try{
+				this.notifyObservers(new ChangeMessage(ChangeMessage.loadingStateChanged,false));
+				}catch(Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+		else if(cm.getType()==ChangeMessage.internetConnectionFailure)
+		{
+			this.setChanged();
+			try{
+				this.notifyObservers(new ChangeMessage(ChangeMessage.internetConnectionFailure,true));
+			}catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 }

@@ -14,6 +14,7 @@ public class Dish {
 	int type; // starter (1), main (2) or desert (3)  
 	String image;
 	String description;
+	int rid;
 	
 	Set<Ingredient> ingredients = new HashSet<Ingredient>();
 	
@@ -23,7 +24,17 @@ public class Dish {
 		this.image = image;
 		this.description = description;
 	}
+	public Dish(String name, int type, String image, String description,int id) {
+		this.name = name;
+		this.type = type;
+		this.image = image;
+		this.description = description;
+		this.rid=id;
+	}
 	public Dish() {
+	}
+	public int getRid() {
+		return rid;
 	}
 	public String getName() {
 		return name;
@@ -53,7 +64,6 @@ public class Dish {
 	public Set<Ingredient> getIngredients(){
 		return ingredients;
 	}
-	
 	public void addIngredient(Ingredient ing){
 		ingredients.add(ing);
 	}
